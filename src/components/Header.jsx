@@ -4,7 +4,7 @@ import Navigation from "./Navigation";
 
 const Header = () => {
   return (
-    <div className="navbar bg-base-100 shadow-sm rounded-xl">
+    <div className="navbar bg-base-100 shadow-sm rounded-xl glass">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -26,7 +26,7 @@ const Header = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-80 p-2 shadow *:py-2 *:border-b *:border-secondary"
           >
             <Navigation></Navigation>
           </ul>
@@ -36,18 +36,19 @@ const Header = () => {
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 gap-2">
           <Navigation></Navigation>
         </ul>
       </div>
       <div className="navbar-end gap-3">
-        <button className="btn btn-ghost btn-outline text-accent ">
-          Sign In
-        </button>
-        <button className="btn btn-primary text-info">Sign Up</button>
-        <button className="btn btn-info text-base-100 btn-circle ">
-          <MdArrowOutward size={30} />
-        </button>
+        <button className="btn btn-ghost border-[#DADADA]">Sign In</button>
+        <div className="">
+          <button className="btn btn-primary text-info">Sign Up</button>
+
+          <button className="btn btn-info text-base-100 btn-circle ">
+            <MdArrowOutward size={30} />
+          </button>
+        </div>
       </div>
     </div>
   );

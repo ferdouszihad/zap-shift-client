@@ -8,7 +8,7 @@
   name: "light";
   default: true;
   --color-primary: #caeb66;
-  --color-secondary: #a3d35b;
+  --color-secondary: #03373d;
   --color-info: #1f1f1f;
   --color-base-200: #eaeced;
   --color-accent: #606060;
@@ -24,4 +24,37 @@
 
 a:hover {
   @apply font-bold;
+}
+
+.banner .swiper-pagination {
+  width: 150px !important;
+  left: 40px !important;
+}
+.banner .swiper-pagination-bullet {
+  width: 20px !important;
+  height: 4px !important;
+  border-radius: 15px !important;
+}
+.banner .swiper-pagination-bullet-active {
+  width: 50px !important;
+  background: #056873 !important;
+}
+.review-swipper {
+  padding-bottom: 80px !important;
+}
+
+.review-swipper .swiper-pagination-bullets {
+  bottom: 0 !important;
+  z-index: 10;
+}
+
+.review-swipper .swiper-pagination-bullet-active {
+  @apply bg-secondary;
+}
+.review-swipper .swiper-slide {
+  opacity: 0.5;
+}
+.review-swipper .swiper-slide-active {
+  opacity: 1;
+  transform: scale(1.5, 1.5);
 }
