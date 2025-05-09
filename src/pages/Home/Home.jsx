@@ -10,6 +10,7 @@ import WhyZapShift from "./WhyZapShift";
 const Home = () => {
   return (
     <div>
+      <title>ZapShift | Home</title>
       <section className="container">
         <Banner></Banner>
       </section>

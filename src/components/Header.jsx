@@ -1,8 +1,11 @@
 import { MdArrowOutward } from "react-icons/md";
 import Logo from "./Logo";
 import Navigation from "./Navigation";
+import { Link } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 const Header = () => {
+  const { user, logOut } = useAuth();
   return (
     <div className="navbar bg-base-100 shadow-sm rounded-xl glass">
       <div className="navbar-start">
@@ -40,16 +43,26 @@ const Header = () => {
           <Navigation></Navigation>
         </ul>
       </div>
-      <div className="navbar-end gap-3">
-        <button className="btn btn-ghost border-[#DADADA]">Sign In</button>
-        <div className="">
-          <button className="btn btn-primary text-info">Sign Up</button>
-
-          <button className="btn btn-info text-base-100 btn-circle ">
-            <MdArrowOutward size={30} />
+      {user && user?.email ? (
+        <div className="navbar-end gap-3">
+          <button onClick={logOut} className="btn btn-primary text-info ">
+            LogOut
           </button>
         </div>
-      </div>
+      ) : (
+        <div className="navbar-end gap-3">
+          <Link to="/login" className="btn btn-ghost border-[#DADADA]">
+            Sign In
+          </Link>
+          <Link to="/register" className="">
+            <button className="btn btn-primary text-info">Sign Up</button>
+
+            <button className="btn btn-info text-base-100 btn-circle ">
+              <MdArrowOutward size={30} />
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
