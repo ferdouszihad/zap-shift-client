@@ -3,33 +3,76 @@ import registerAnimation from "../../assets/json/register.json";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import SubmitBtn from "../../components/SubmitBtn";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import useAxios from "../../hooks/useAxios";
+import SocialLogin from "../../components/SocialLogin";
+import { MdDeliveryDining } from "react-icons/md";
 
 const Register = () => {
   const { createUser, updateUser, setUser } = useAuth();
   const [showPassword, setShowPassWord] = useState(false);
   const [loginError, setLoginError] = useState("");
+  const [activeAvatar, setActiveAvatar] = useState("");
+  const [imgError, setimgError] = useState("");
+  const [isUpload, setIsUpload] = useState(false);
+
   const navigate = useNavigate();
-  console.log(showPassword);
+  const location = useLocation();
+  const inputRef = useRef();
+  const imgbb_key = import.meta.env.VITE_imgbb_api_key;
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${imgbb_key}`;
+  const axios = useAxios();
+
+  const avatar = [
+    "https://img.icons8.com/?size=96&id=81120&format=png",
+    "https://img.icons8.com/?size=96&id=80989&format=png",
+    "https://img.icons8.com/?size=96&id=80615&format=png",
+    "https://img.icons8.com/?size=96&id=81026&format=png",
+    "https://img.icons8.com/?size=96&id=81802&format=png",
+  ];
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const handleImgUpload = async (e) => {
+    setimgError("");
+
+    const imageFile = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const res = await axios.post(image_hosting_api, formData, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+
+    if (res.data.success) {
+      setActiveAvatar(res.data.data.display_url);
+      setIsUpload(true);
+    } else {
+      setimgError("Something went wrong. try again or choose exesting avatar");
+    }
+  };
+
   const onSubmit = (data) => {
-    console.log(data);
-    const { name, email, photo, password } = data;
+    // console.log(data);
+    const { name, email, password } = data;
+    if (!activeAvatar) {
+      setimgError("Please select an avatar");
+      return;
+    }
     createUser(email, password)
       .then((res) => {
         const user = res.user;
-
         setUser({ ...user });
-
-        updateUser({ displayName: name, photoURL: photo }).then(() => {
-          setUser({ ...user, displayName: name, photoURL: photo });
-          navigate("/");
+        updateUser({ displayName: name, photoURL: activeAvatar }).then(() => {
+          setUser({ ...user, displayName: name, photoURL: activeAvatar });
+          navigate(location.state ? location.state : "/");
         });
       })
       .catch((error) => {
@@ -37,7 +80,7 @@ const Register = () => {
       });
   };
   return (
-    <div className="container py-10">
+    <div className="container py-10 gap-10">
       <h2 className="text-5xl font-bold text-center pb-5">
         Sign up as a <span className="text-secondary">Merchant</span>
       </h2>
@@ -45,6 +88,16 @@ const Register = () => {
         <div className="flex-1">
           <div className="card bg-base-100 w-full mx-auto lg:max-w-sm shrink-0 shadow-2xl">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+              <h3 className="my-2  font-semibold flex items-center gap-2 ">
+                Want to be an <span className="text-secondary">Agent ?</span>{" "}
+                <Link
+                  className="flex items-center hover:underline  text-green-600"
+                  to="/sign-up-agent"
+                >
+                  <MdDeliveryDining />
+                  Click Here
+                </Link>
+              </h3>
               <fieldset className="fieldset">
                 {/* name  */}
                 <label className="label">Your Name</label>
@@ -63,20 +116,53 @@ const Register = () => {
                 />
 
                 {/* photo  */}
-                <label className="label">Your Photo URL</label>
-                {errors.photo && (
-                  <p className="text-error text-xs">{errors.photo.message}</p>
-                )}
-                <input
-                  type="url"
-                  className={`input ${
-                    errors?.photo ? "input-error" : "input-success"
-                  } `}
-                  placeholder="Enter your Photo"
-                  {...register("photo", {
-                    required: "pleae provide a valid photo",
-                  })}
-                />
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Choose an Avatar</span>
+                  </label>
+
+                  <div className="flex gap-2 flex-wrap items-center">
+                    {avatar.map((av) => (
+                      <div
+                        onClick={() => {
+                          setActiveAvatar(av);
+                          setimgError("");
+                        }}
+                        className={`p-px rounded-full border-2 border-base-200 cursor-pointer ${
+                          activeAvatar == av && "border-success"
+                        }`}
+                        key={av}
+                      >
+                        <img className="w-10 rounded-full" src={av} alt="" />
+                      </div>
+                    ))}
+                    <div
+                      className={`p-px rounded-full border-2 border-base-200 cursor-pointer ${
+                        isUpload && "border-success"
+                      }`}
+                    >
+                      <img
+                        onClick={() => inputRef?.current?.click()}
+                        className="w-10 h-10 rounded-full object-cover p-1 bg-base-200 cursor-pointer"
+                        src={`${
+                          isUpload
+                            ? activeAvatar
+                            : "https://img.icons8.com/?size=96&id=8ax09IWlr80n&format=png"
+                        }`}
+                        alt=""
+                      />
+                    </div>
+                    <input
+                      onChange={handleImgUpload}
+                      ref={inputRef}
+                      name="image"
+                      className="hidden"
+                      type="file"
+                    />
+                  </div>
+
+                  {imgError && <p className="text-error text-xs">{imgError}</p>}
+                </div>
 
                 {/* email  */}
                 <label className="label">Your Email</label>
@@ -141,12 +227,14 @@ const Register = () => {
                     <Link
                       to="/login"
                       className="link link-hover text-secondary font-semibold"
+                      state={location.state}
                     >
                       Login Now
                     </Link>
                   </p>
                 </div>
               </fieldset>
+              <SocialLogin role="marchent"></SocialLogin>
             </form>
           </div>
         </div>

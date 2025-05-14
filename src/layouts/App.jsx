@@ -8,13 +8,16 @@ function App() {
   const { user } = useAuth();
   const location = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, [location.pathname]);
   return (
-    <div className="bg-base-200 min-h-screen pb-5">
+    <div className="bg-base-200 min-h-screen pb-5 scroll-smooth">
       {user && (
         <p className="bg-primary py-1 text-center font-semibold">
-          Welcome Mr. {user?.email}
+          Welcome Mr. {user?.displayName}
         </p>
       )}
       <header className="container py-5 ">

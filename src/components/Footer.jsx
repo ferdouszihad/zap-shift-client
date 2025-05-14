@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import Logo from "./Logo";
 import Navigation from "./Navigation";
 import SocialIcons from "./SocialIcons";
@@ -20,6 +21,10 @@ const Footer = () => {
         </ul>
         <div className="">
           <SocialIcons></SocialIcons>
+        </div>
+        <div className="text-accent *:hover:text-base-300 *:hover:underline space-x-5 text-sm text-link">
+          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/terms-and-conditions">Terms & Condition</Link>
         </div>
       </div>
     </div>

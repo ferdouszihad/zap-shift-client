@@ -5,13 +5,15 @@ import useAuth from "../../hooks/useAuth";
 import SubmitBtn from "../../components/SubmitBtn";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import SocialLogin from "../../components/SocialLogin";
 
 const Login = () => {
-  const { createUser, updateUser, setUser } = useAuth();
+  const { loginUser, setUser } = useAuth();
   const [showPassword, setShowPassWord] = useState(false);
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
   console.log(showPassword);
   const {
     register,
@@ -20,17 +22,12 @@ const Login = () => {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    const { name, email, photo, password } = data;
-    createUser(email, password)
+    const { email, password } = data;
+    loginUser(email, password)
       .then((res) => {
         const user = res.user;
-
         setUser({ ...user });
-
-        updateUser({ displayName: name, photoURL: photo }).then(() => {
-          setUser({ ...user, displayName: name, photoURL: photo });
-          navigate("/");
-        });
+        navigate(location.state ? location.state : "/");
       })
       .catch((error) => {
         setLoginError(error.message);
@@ -116,12 +113,14 @@ const Login = () => {
                     <Link
                       to="/register"
                       className="link link-hover text-secondary font-semibold"
+                      state={location.state}
                     >
                       Register Now
                     </Link>
                   </p>
                 </div>
               </fieldset>
+              <SocialLogin></SocialLogin>
             </form>
           </div>
         </div>

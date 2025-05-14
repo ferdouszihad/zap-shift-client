@@ -3,9 +3,27 @@ import Logo from "./Logo";
 import Navigation from "./Navigation";
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Header = () => {
   const { user, logOut } = useAuth();
+  const handleLogOut = () => {
+    Swal.fire({
+      title: "We will Miss You Sir",
+      text: "Let's Increase your Business Journey with us",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#caeb66",
+      cancelButtonText: "I will stay",
+      confirmButtonText: "LogOut",
+      buttonsStyling: { color: "black" },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut();
+      }
+    });
+  };
   return (
     <div className="navbar bg-base-100 shadow-sm rounded-xl glass">
       <div className="navbar-start">
@@ -45,7 +63,17 @@ const Header = () => {
       </div>
       {user && user?.email ? (
         <div className="navbar-end gap-3">
-          <button onClick={logOut} className="btn btn-primary text-info ">
+          <div className="rounded-full cursor-pointer relative overflow-hidden border-2 border-primary p-px">
+            <img
+              className="w-12 h-12 object-fit rounded-full relative z-10 "
+              src={user?.photoURL}
+              alt="as"
+            />
+            <h2 className="inset-0 absolute flex justify-center items-center text-xl font-bold bg-primary">
+              {user?.email[0]}
+            </h2>
+          </div>
+          <button onClick={handleLogOut} className="btn btn-primary text-info ">
             LogOut
           </button>
         </div>
