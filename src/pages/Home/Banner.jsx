@@ -22,15 +22,15 @@ const Banner = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="banner"
       >
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <Content1></Content1>
-        </SwiperSlide>
+        </SwiperSlide> */}
         <SwiperSlide>
           <Content2></Content2>
         </SwiperSlide>
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <Content3></Content3>
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
     </div>
   );

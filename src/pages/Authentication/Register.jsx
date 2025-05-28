@@ -9,6 +9,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import useAxios from "../../hooks/useAxios";
 import SocialLogin from "../../components/SocialLogin";
 import { MdDeliveryDining } from "react-icons/md";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const { createUser, updateUser, setUser } = useAuth();
@@ -16,51 +17,54 @@ const Register = () => {
   const [loginError, setLoginError] = useState("");
   const [activeAvatar, setActiveAvatar] = useState("");
   const [imgError, setimgError] = useState("");
-  const [isUpload, setIsUpload] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [avatar, setAvatar] = useState([
+    "https://img.icons8.com/?size=96&id=81120&format=png",
+    "https://img.icons8.com/?size=96&id=80989&format=png",
+    "https://img.icons8.com/?size=96&id=80615&format=png",
+    "https://img.icons8.com/?size=96&id=81026&format=png",
+    "https://img.icons8.com/?size=96&id=81802&format=png",
+  ]);
 
   const navigate = useNavigate();
   const location = useLocation();
   const inputRef = useRef();
   const imgbb_key = import.meta.env.VITE_imgbb_api_key;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${imgbb_key}`;
-  const axios = useAxios();
+  const axiosPublic = useAxios();
 
-  const avatar = [
-    "https://img.icons8.com/?size=96&id=81120&format=png",
-    "https://img.icons8.com/?size=96&id=80989&format=png",
-    "https://img.icons8.com/?size=96&id=80615&format=png",
-    "https://img.icons8.com/?size=96&id=81026&format=png",
-    "https://img.icons8.com/?size=96&id=81802&format=png",
-  ];
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const handleImgUpload = async (e) => {
     setimgError("");
-
+    setIsUploading(true);
     const imageFile = e.target.files[0];
     const formData = new FormData();
     formData.append("image", imageFile);
 
-    const res = await axios.post(image_hosting_api, formData, {
+    const res = await axiosPublic.post(image_hosting_api, formData, {
       headers: {
         "content-type": "multipart/form-data",
       },
     });
 
     if (res.data.success) {
+      setAvatar([...avatar, res.data.data.display_url]);
       setActiveAvatar(res.data.data.display_url);
-      setIsUpload(true);
+      setIsUploading(false);
     } else {
+      setIsUploading(false);
       setimgError("Something went wrong. try again or choose exesting avatar");
     }
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // console.log(data);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const { name, email, password } = data;
     if (!activeAvatar) {
       setimgError("Please select an avatar");
@@ -72,6 +76,20 @@ const Register = () => {
         setUser({ ...user });
         updateUser({ displayName: name, photoURL: activeAvatar }).then(() => {
           setUser({ ...user, displayName: name, photoURL: activeAvatar });
+
+          const newUser = {
+            displayName: name,
+            photoURL: activeAvatar,
+            email: user.email,
+            role: "merchant",
+            createdAt: new Date().toISOString(),
+          };
+
+          axiosPublic.post("/user", newUser).then((res) => {
+            if (res.data.insertedId) {
+              Swal.fire(`Welcome ${name}`, "You are All Set", "success");
+            }
+          });
           navigate(location.state ? location.state : "/");
         });
       })
@@ -88,16 +106,6 @@ const Register = () => {
         <div className="flex-1">
           <div className="card bg-base-100 w-full mx-auto lg:max-w-sm shrink-0 shadow-2xl">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-              <h3 className="my-2  font-semibold flex items-center gap-2 ">
-                Want to be an <span className="text-secondary">Agent ?</span>{" "}
-                <Link
-                  className="flex items-center hover:underline  text-green-600"
-                  to="/sign-up-agent"
-                >
-                  <MdDeliveryDining />
-                  Click Here
-                </Link>
-              </h3>
               <fieldset className="fieldset">
                 {/* name  */}
                 <label className="label">Your Name</label>
@@ -137,31 +145,29 @@ const Register = () => {
                       </div>
                     ))}
                     <div
-                      className={`p-px rounded-full border-2 border-base-200 cursor-pointer ${
-                        isUpload && "border-success"
-                      }`}
+                      onClick={() => inputRef?.current.click()}
+                      className="w-10 h-10 p-2 bg-base-200 rounded-full cursor-pointer"
                     >
                       <img
-                        onClick={() => inputRef?.current?.click()}
-                        className="w-10 h-10 rounded-full object-cover p-1 bg-base-200 cursor-pointer"
-                        src={`${
-                          isUpload
-                            ? activeAvatar
-                            : "https://img.icons8.com/?size=96&id=8ax09IWlr80n&format=png"
-                        }`}
+                        className=""
+                        src="https://img.icons8.com/?size=96&id=8ax09IWlr80n&format=png"
                         alt=""
                       />
+                      <input
+                        onChange={handleImgUpload}
+                        className="hidden"
+                        ref={inputRef}
+                        type="file"
+                        name=""
+                        id=""
+                        accept=".jpg,.jpeg,.png"
+                      />
                     </div>
-                    <input
-                      onChange={handleImgUpload}
-                      ref={inputRef}
-                      name="image"
-                      className="hidden"
-                      type="file"
-                    />
-                  </div>
 
-                  {imgError && <p className="text-error text-xs">{imgError}</p>}
+                    {imgError && (
+                      <p className="text-error text-xs">{imgError}</p>
+                    )}
+                  </div>
                 </div>
 
                 {/* email  */}
@@ -187,7 +193,7 @@ const Register = () => {
                     uppercase letter
                   </p>
                 )}
-                <div className="relative">
+                <div className="relative mb-4">
                   <input
                     type={`${showPassword ? "text" : "password"}`}
                     className={`input ${
@@ -219,7 +225,18 @@ const Register = () => {
                   <p className="text-error text-xs">{loginError}</p>
                 )}
 
-                <SubmitBtn className="btn btn-neutral mt-4">Register</SubmitBtn>
+                {isUploading && (
+                  <p className="text-success text-xs">
+                    Image is Uploading . please wait
+                  </p>
+                )}
+
+                <button
+                  disabled={isSubmitting || isUploading}
+                  className="btn btn-neutral  "
+                >
+                  {isSubmitting ? "Registering.." : "Register Now"}
+                </button>
 
                 <div className="mt-3">
                   <p>
@@ -234,7 +251,7 @@ const Register = () => {
                   </p>
                 </div>
               </fieldset>
-              <SocialLogin role="marchent"></SocialLogin>
+              <SocialLogin></SocialLogin>
             </form>
           </div>
         </div>

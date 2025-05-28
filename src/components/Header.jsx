@@ -63,19 +63,45 @@ const Header = () => {
       </div>
       {user && user?.email ? (
         <div className="navbar-end gap-3">
-          <div className="rounded-full cursor-pointer relative overflow-hidden border-2 border-primary p-px">
-            <img
-              className="w-12 h-12 object-fit rounded-full relative z-10 "
-              src={user?.photoURL}
-              alt="as"
-            />
-            <h2 className="inset-0 absolute flex justify-center items-center text-xl font-bold bg-primary">
-              {user?.email[0]}
-            </h2>
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="rounded-full cursor-pointer relative z-10 overflow-hidden border-2 border-primary p-px"
+            >
+              <img
+                className="w-12 h-12 object-fit rounded-full relative z-10 "
+                src={user?.photoURL}
+                alt="as"
+              />
+              <h2 className="inset-0 absolute flex justify-center items-center text-xl font-bold bg-primary">
+                {user?.email[0]}
+              </h2>
+            </div>
+
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu bg-base-100 rounded-box z-[50] w-52 p-2 shadow-sm"
+            >
+              <li>
+                <Link>Book a Parcel</Link>
+              </li>
+              <li>
+                <Link>Dashboard</Link>
+              </li>
+              <li>
+                <Link>Settings</Link>
+              </li>
+              <li>
+                <button
+                  onClick={handleLogOut}
+                  className="btn btn-primary text-info "
+                >
+                  LogOut
+                </button>
+              </li>
+            </ul>
           </div>
-          <button onClick={handleLogOut} className="btn btn-primary text-info ">
-            LogOut
-          </button>
         </div>
       ) : (
         <div className="navbar-end gap-3">

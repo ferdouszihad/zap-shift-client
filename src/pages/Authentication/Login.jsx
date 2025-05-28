@@ -14,14 +14,15 @@ const Login = () => {
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(showPassword);
+  // console.log(showPassword);
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // console.log(data);
     const { email, password } = data;
     loginUser(email, password)
       .then((res) => {
@@ -103,9 +104,12 @@ const Login = () => {
                   <p className="text-error text-xs">{loginError}</p>
                 )}
 
-                <SubmitBtn className="btn btn-neutral mt-4">
+                <button
+                  disabled={isSubmitting}
+                  className="btn btn-neutral mt-4"
+                >
                   Login Now
-                </SubmitBtn>
+                </button>
 
                 <div className="mt-3">
                   <p>
