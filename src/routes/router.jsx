@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: "/coverage",
         element: <Coverage></Coverage>,
-        loader: () => fetch("http://localhost:5000/warehouse"),
+        loader: () => fetch("https://zap-shift-server.vercel.app/warehouse"),
       },
       {
         path: "/login",
