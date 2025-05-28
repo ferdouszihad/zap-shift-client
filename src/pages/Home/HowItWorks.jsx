@@ -19,9 +19,9 @@ const HowItWorks = () => {
     },
   ];
   return (
-    <div className="w-11/12 mx-auto">
+    <div className="lg:w-11/12 mx-auto">
       <h2 className="text-2xl font-bold text-info mb-5">How it Works</h2>
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
         {works.map((work, index) => (
           <div
             key={`how-${index}`}

@@ -28,7 +28,7 @@ const Brands = () => {
           modules={[Autoplay]}
           slidesPerView={4}
           grabCursor={true}
-          className="mySwiper"
+          className="mySwiper items-center"
         >
           <SwiperSlide>
             <img src={casio} alt="" />

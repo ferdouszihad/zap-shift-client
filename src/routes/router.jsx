@@ -7,6 +7,9 @@ import Register from "../pages/Authentication/Register";
 import PrivacyPolicy from "../pages/utils/PrivacyPolicy";
 import TermsAndConditions from "../pages/utils/TermsAndConditions";
 import Loading from "../pages/utils/Loading";
+import BookParcel from "../pages/BookParcel/BookParcel";
+import ServicePage from "../pages/Services/ServicePage";
+import Coverage from "../pages/Coverage/Coverage";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +20,19 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/book-parcel",
+        element: <BookParcel></BookParcel>,
+      },
+      {
+        path: "/service",
+        element: <ServicePage></ServicePage>,
+      },
+      {
+        path: "/coverage",
+        element: <Coverage></Coverage>,
+        loader: () => fetch("http://localhost:5000/warehouse"),
       },
       {
         path: "/login",

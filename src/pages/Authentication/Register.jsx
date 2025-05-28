@@ -64,6 +64,7 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     // console.log(data);
+    setLoginError("");
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const { name, email, password } = data;
     if (!activeAvatar) {
@@ -74,6 +75,7 @@ const Register = () => {
       .then((res) => {
         const user = res.user;
         setUser({ ...user });
+        navigate(location.state ? location.state : "/");
         updateUser({ displayName: name, photoURL: activeAvatar }).then(() => {
           setUser({ ...user, displayName: name, photoURL: activeAvatar });
 
@@ -90,7 +92,6 @@ const Register = () => {
               Swal.fire(`Welcome ${name}`, "You are All Set", "success");
             }
           });
-          navigate(location.state ? location.state : "/");
         });
       })
       .catch((error) => {
@@ -102,8 +103,8 @@ const Register = () => {
       <h2 className="text-5xl font-bold text-center pb-5">
         Sign up as a <span className="text-secondary">Merchant</span>
       </h2>
-      <div className=" flex flex-col lg:flex-row-reverse  items-center">
-        <div className="flex-1">
+      <div className=" flex flex-col-reverse md:flex-row-reverse  items-center">
+        <div className="flex-1 w-full">
           <div className="card bg-base-100 w-full mx-auto lg:max-w-sm shrink-0 shadow-2xl">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <fieldset className="fieldset">
@@ -114,7 +115,7 @@ const Register = () => {
                 )}
                 <input
                   type="text"
-                  className={`input ${
+                  className={`input w-full ${
                     errors?.name ? "input-error" : "input-success"
                   } `}
                   placeholder="Enter your Official Name"
@@ -177,7 +178,7 @@ const Register = () => {
                 )}
                 <input
                   type="email"
-                  className={`input ${
+                  className={`input w-full ${
                     errors?.email ? "input-error" : "input-success"
                   } `}
                   placeholder="Enter Your Email"
@@ -196,7 +197,7 @@ const Register = () => {
                 <div className="relative mb-4">
                   <input
                     type={`${showPassword ? "text" : "password"}`}
-                    className={`input ${
+                    className={`input w-full ${
                       errors?.password ? "input-error" : "input-success"
                     } `}
                     placeholder="Password"
@@ -256,7 +257,7 @@ const Register = () => {
           </div>
         </div>
         <div className="flex-1">
-          <div className="">
+          <div className="max-w-[200px] md:max-w-[450px]">
             <Lottie
               className="w-full"
               options={{

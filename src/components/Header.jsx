@@ -81,18 +81,19 @@ const Header = () => {
 
             <ul
               tabIndex={0}
-              className="dropdown-content menu bg-base-100 rounded-box z-[50] w-52 p-2 shadow-sm"
+              id="user-nav"
+              className="dropdown-content -right-1  !z-50 menu bg-base-100 rounded-box  w-60 p-2 shadow-sm *:py-3 border-b-2 border-b-base-300"
             >
-              <li>
-                <Link>Book a Parcel</Link>
+              <li className="border-b-2 border-b-base-300">
+                <Link to="/book-parcel">Book a Parcel</Link>
               </li>
-              <li>
+              <li className="border-b-2 border-b-base-300">
                 <Link>Dashboard</Link>
               </li>
-              <li>
+              <li className="border-b-2 border-b-base-300">
                 <Link>Settings</Link>
               </li>
-              <li>
+              <li className="">
                 <button
                   onClick={handleLogOut}
                   className="btn btn-primary text-info "
@@ -105,7 +106,10 @@ const Header = () => {
         </div>
       ) : (
         <div className="navbar-end gap-3">
-          <Link to="/login" className="btn btn-ghost border-[#DADADA]">
+          <Link
+            to="/login"
+            className=" hidden md:flex btn btn-ghost border-[#DADADA]"
+          >
             Sign In
           </Link>
           <Link to="/register" className="">

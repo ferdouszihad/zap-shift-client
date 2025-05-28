@@ -16,7 +16,7 @@ const Footer = () => {
             deliver on time, every time.
           </p>
         </div>
-        <ul className="flex gap-5 text-base-200">
+        <ul className="flex lg:flex-row flex-col gap-5 text-base-200">
           <Navigation></Navigation>
         </ul>
         <div className="">

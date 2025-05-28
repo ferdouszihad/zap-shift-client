@@ -58,8 +58,3 @@ a:hover {
   opacity: 1;
   transform: scale(1.5, 1.5);
 }
-
-.swiper,
-.swiper-slide {
-  z-index: 10 !important;
-}

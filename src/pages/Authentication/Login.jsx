@@ -39,9 +39,9 @@ const Login = () => {
       <h2 className="text-5xl font-bold text-center pb-5">
         Welcome !! <span className="text-secondary">Let's Login</span>
       </h2>
-      <div className=" flex flex-col lg:flex-row  items-center">
-        <div className="flex-1">
-          <div className="card bg-base-100 w-full mx-auto lg:max-w-sm shrink-0 shadow-2xl">
+      <div className=" flex flex-col-reverse md:flex-row  items-center">
+        <div className="flex-1 w-full">
+          <div className="card bg-base-100 w-full mx-auto lg:max-w-sm lg:shrink-0 shadow-2xl">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <fieldset className="fieldset">
                 {/* email  */}
@@ -51,7 +51,7 @@ const Login = () => {
                 )}
                 <input
                   type="email"
-                  className={`input ${
+                  className={`input w-full ${
                     errors?.email ? "input-error" : "input-success"
                   } `}
                   placeholder="Enter Your Email"
@@ -69,7 +69,7 @@ const Login = () => {
                 <div className="relative">
                   <input
                     type={`${showPassword ? "text" : "password"}`}
-                    className={`input ${
+                    className={`input w-full ${
                       errors?.password ? "input-error" : "input-success"
                     } `}
                     placeholder="Password"
@@ -129,7 +129,7 @@ const Login = () => {
           </div>
         </div>
         <div className="flex-1">
-          <div className="max-w-[400px] mx-auto">
+          <div className="max-w-[200px] md:max-w-[350px] mx-auto">
             <Lottie
               className="w-full"
               options={{

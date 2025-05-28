@@ -21,12 +21,12 @@ const WhyZapShift = () => {
       {goals.map((goal, index) => (
         <div
           key={`goal-${index}`}
-          className="card card-side bg-base-100 shadow-sm p-5 gap-5 rounded-xl items-center"
+          className="card md:card-side items-center bg-base-100 shadow-sm p-5 gap-5 rounded-xl "
         >
           <figure className="">
             <img src={goal.img ? goal.img : seafeDeliveryImg} alt="Movie" />
           </figure>
-          <div className="border-r border-dashed border-info h-[100px] ml-5"></div>
+          <div className="border-r hidden md:block border-dashed border-info h-[100%] ml-5"></div>
           <div className="card-body flex-1">
             <h2 className="card-title">{goal.title}</h2>
             <p>{goal.desc}</p>

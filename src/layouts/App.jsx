@@ -1,12 +1,14 @@
-import { Outlet, useLocation } from "react-router";
+import { Outlet, useLocation, useNavigation } from "react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import useAuth from "../hooks/useAuth";
 import { useEffect } from "react";
+import Loading from "../pages/utils/Loading";
 
 function App() {
   const { user } = useAuth();
   const location = useLocation();
+  const navigation = useNavigation();
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -24,7 +26,11 @@ function App() {
         <Header></Header>
       </header>
       <main className="min-h-[calc(100vh-480px)]">
-        <Outlet></Outlet>
+        {navigation.state == "loading" ? (
+          <Loading></Loading>
+        ) : (
+          <Outlet></Outlet>
+        )}
       </main>
       <footer>
         <Footer></Footer>
