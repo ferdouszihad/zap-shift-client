@@ -16,10 +16,7 @@ const Navigation = () => {
         <NavLink to="/pricing">Pricing</NavLink>
       </li>
       <li>
-        <NavLink to="/blog">Blog</NavLink>
-      </li>
-      <li>
-        <NavLink to="/contact">Contact</NavLink>
+        <NavLink to="/be-a-rider">Be A Rider</NavLink>
       </li>
     </>
   );
