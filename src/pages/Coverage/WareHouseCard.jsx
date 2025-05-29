@@ -6,9 +6,9 @@ const WareHouseCard = ({ data }) => {
   const { region, district, covered_area, longitude, latitude } = data;
   return (
     <div className="card lg:card-side bg-base-100 shadow-sm">
-      <figure className="flex-1">
+      <figure className="lg:flex-1">
         <iframe
-          width="600"
+          width="100%"
           className="border-0"
           height="450"
           loading="lazy"
@@ -17,7 +17,7 @@ const WareHouseCard = ({ data }) => {
           src={`https://www.google.com/maps?q=${latitude},${longitude}&hl=en&z=12&output=embed`}
         ></iframe>
       </figure>
-      <div className="card-body flex-1">
+      <div className="card-body lg:flex-1">
         <h2 className="card-title">{district}</h2>
         <p className="flex items-center gap-3 ">
           <BiWorld></BiWorld> - <span className="font-bold">{region}</span>{" "}
