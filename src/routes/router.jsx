@@ -12,6 +12,8 @@ import ServicePage from "../pages/Services/ServicePage";
 import Coverage from "../pages/Coverage/Coverage";
 import Pricing from "../pages/Pricing/Pricing";
 import AboutUs from "../pages/AboutUs/AboutUs";
+import PrivateRoute from "./PrivateRoute";
+import RiderRegistraion from "../pages/BeARider/RiderRegistraion";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +27,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/book-parcel",
-        element: <BookParcel></BookParcel>,
+        element: (
+          <PrivateRoute>
+            <BookParcel></BookParcel>
+          </PrivateRoute>
+        ),
         loader: () => fetch("/division.json"),
       },
       {
@@ -34,7 +40,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/be-a-rider",
-        element: <ServicePage></ServicePage>,
+        element: (
+          <PrivateRoute>
+            <RiderRegistraion></RiderRegistraion>
+          </PrivateRoute>
+        ),
+        loader: () => fetch("/division.json"),
       },
       {
         path: "/about-us",
@@ -43,7 +54,7 @@ const router = createBrowserRouter([
       {
         path: "/coverage",
         element: <Coverage></Coverage>,
-        loader: () => fetch("http://localhost:5000/warehouse"),
+        loader: () => fetch("https://zap-shift-server.vercel.app/warehouse"),
       },
       {
         path: "/pricing",

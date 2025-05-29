@@ -25,6 +25,9 @@
 a:hover {
   @apply font-bold;
 }
+a.active {
+  @apply font-bold;
+}
 
 .banner .swiper-pagination {
   width: 150px !important;

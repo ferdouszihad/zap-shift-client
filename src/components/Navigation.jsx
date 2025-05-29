@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 const Navigation = () => {
   return (
     <>
-      <li className="text-accent font-semibold">
+      <li className="">
         <NavLink to="/service">Service</NavLink>
       </li>
       <li>

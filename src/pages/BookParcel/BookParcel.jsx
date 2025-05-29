@@ -129,7 +129,7 @@ const BookParcel = () => {
   };
 
   return (
-    <div className="rounded-xl py-3 container">
+    <div className="rounded-xl pb-5 container">
       <PageTitle
         title={"Book Parcel Delivery"}
         subtitle={
