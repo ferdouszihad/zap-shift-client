@@ -2,7 +2,7 @@ import PageTitle from "../../components/PageTitle";
 import { useForm } from "react-hook-form";
 import useWareHouseData from "../../hooks/useWareHouseData";
 
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import WareHouseCard from "../Coverage/WareHouseCard";
 import useAuth from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
@@ -17,6 +17,7 @@ const BookParcel = () => {
     formState: { errors, isSubmitting },
     watch,
   } = useForm();
+  const navigate = useNavigate();
 
   const axiosSecure = useAxiosSecure();
 
@@ -118,6 +119,7 @@ const BookParcel = () => {
                 `please pay ৳ ${cost} Taka to start your Delivery  `,
                 "success"
               );
+              navigate("/dashboard/parcels/unpaid");
             } else {
               Swal.fire("Opps", "Something Went Wrong", "error");
             }

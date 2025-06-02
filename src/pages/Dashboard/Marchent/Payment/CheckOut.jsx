@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
-import { useParams } from "react-router";
-import useUserParcel from "../../../../hooks/useUserParcel";
+import { useNavigate, useParams } from "react-router";
+import useUnPaidParcel from "../../../../hooks/useUnPaidPercels";
 import Logo from "../../../../components/Logo";
 
 const CheckOut = () => {
@@ -17,27 +17,16 @@ const CheckOut = () => {
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [total, setTotal] = useState(0);
-  const { parcels } = useUserParcel();
+  const { parcels, refetch } = useUnPaidParcel();
 
-  const { to } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    if (to == "all") {
-      const unpaidParcels = parcels.filter(
-        (parcel) => parcel.status == "unpaid"
-      );
-      setTotal(unpaidParcels.reduce((ac, parcel) => parcel.charge + ac, 0));
-    } else {
-      const parcel = parcels.find((p) => p._id == to);
-      if (!parcel) {
-        Swal.fire("Opps", "System Could not recognize your parcel", "error");
-      } else {
-        setTotal(parcel.charge);
-      }
-    }
-  }, [to, parcels]);
+    const parcel = parcels.find((p) => p._id == id);
+    if (parcel) setTotal(parcel.charge);
+  }, [id, parcels]);
 
   useEffect(() => {
     if (total > 0) {
@@ -92,6 +81,28 @@ const CheckOut = () => {
       console.log("confirm error");
     } else {
       console.log("payment intent", paymentIntent);
+
+      const paymentInfo = {
+        parcelId: id,
+        user_email: user?.email,
+        paid_at: new Date().toISOString(),
+        amount: paymentIntent.amount,
+        txn_id: paymentIntent.id,
+        currency: paymentIntent.currency,
+      };
+
+      axiosSecure.post("/payment", paymentInfo).then((res) => {
+        if (res.data?.insertedId) {
+          Swal.fire(
+            "Payment Completed",
+            "Your Delivery Process Started",
+            "success"
+          );
+        }
+
+        refetch();
+        navigate("/dashboard");
+      });
 
       setTransactionId(paymentIntent.id);
     }
@@ -155,9 +166,9 @@ const CheckOut = () => {
         </div>
         <p className="text-red-600">{error}</p>
         {transactionId && (
-          <p className="text-green-600">
+          <p className="text-accent font-bold">
             {" "}
-            Your transaction id: {transactionId}
+            Success!! transactionId - {transactionId}
           </p>
         )}
       </form>

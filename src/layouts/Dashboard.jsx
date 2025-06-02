@@ -10,13 +10,13 @@ import { GrGrid } from "react-icons/gr";
 import useAuth from "../hooks/useAuth";
 import Logo from "../components/Logo";
 import Loading from "../pages/utils/Loading";
-import useUserParcel from "../hooks/useUserParcel";
+import useUnPaidParcel from "../hooks/useUnPaidPercels";
 
 const Dashboard = () => {
   const { logOut } = useAuth();
   const navigate = useNavigate();
   const { state } = useNavigation();
-  const { parcels } = useUserParcel();
+  const { parcels } = useUnPaidParcel("unpaid");
   console.log(parcels);
 
   const handleLogOut = () => {

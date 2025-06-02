@@ -59,7 +59,7 @@ const router = createBrowserRouter([
       {
         path: "/coverage",
         element: <Coverage></Coverage>,
-        loader: () => fetch("https://zap-shift-server.vercel.app/warehouse"),
+        loader: () => fetch("http://localhost:5000/warehouse"),
       },
       {
         path: "/pricing",
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
         element: <UnPaidParcels></UnPaidParcels>,
       },
       {
-        path: "/dashboard/payment/:to",
+        path: "/dashboard/payment/:id",
         element: <Payment></Payment>,
       },
     ],

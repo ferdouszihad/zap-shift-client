@@ -1,16 +1,18 @@
 import { Link } from "react-router";
 import PageTitle from "../../../components/PageTitle";
-import useUserParcel from "../../../hooks/useUserParcel";
+import useUnPaidParcel from "../../../hooks/useUnPaidPercels";
 import ParcelRow from "./ParcelRow";
 import Loading from "../../utils/Loading";
 import { useEffect, useState } from "react";
 
 const UnPaidParcels = () => {
-  const { parcels, isLoading } = useUserParcel();
+  const { parcels, isLoading } = useUnPaidParcel();
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    const sum = parcels.reduce((acc, p) => acc + p.charge, 0);
+    const sum = parcels
+      .filter((p) => (p.status = "unpaid"))
+      .reduce((acc, p) => acc + p.charge, 0);
     setTotal(sum);
   }, [parcels]);
 
@@ -25,7 +27,7 @@ const UnPaidParcels = () => {
         }
       ></PageTitle>
 
-      {parcels?.length == 0 && (
+      {parcels.filter((parcel) => parcel.status == "unpaid")?.length == 0 && (
         <div className="py-10 flex flex-col justify-center gap-5 items-center">
           <h2 className="text-center text-3xl">
             You have not Booked any parcel yet
@@ -40,12 +42,6 @@ const UnPaidParcels = () => {
         <p className=" flex gap-2 justify-end items-center">
           Total to Pay -{" "}
           <span className="font-bold text-secondary">{total}৳</span>{" "}
-          <Link
-            to="/dashboard/payment/all"
-            className="btn btn-primary text-black"
-          >
-            Pay All
-          </Link>
         </p>
         <table className="table ">
           {/* head */}
