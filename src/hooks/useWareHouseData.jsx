@@ -11,7 +11,7 @@ const useWareHouseData = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["warehouse", user?.email],
+    queryKey: ["warehouse"],
     queryFn: async () => {
       const res = await axios.get("/warehouse");
       return res.data;

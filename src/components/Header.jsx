@@ -36,13 +36,12 @@ const Header = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
+              />
             </svg>
           </div>
           <ul
@@ -88,7 +87,7 @@ const Header = () => {
                 <Link to="/book-parcel">Book a Parcel</Link>
               </li>
               <li className="border-b-2 border-b-base-300">
-                <Link>Dashboard</Link>
+                <Link to="/dashboard">Dashboard</Link>
               </li>
               <li className="border-b-2 border-b-base-300">
                 <Link>Settings</Link>

@@ -13,7 +13,8 @@ const BookParcel = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+
+    formState: { errors, isSubmitting },
     watch,
   } = useForm();
 
@@ -95,6 +96,7 @@ const BookParcel = () => {
       tracking_no: null,
       pickup_otp: null,
       delivery_otp: null,
+      status: "unpaid",
     };
 
     Swal.fire({
@@ -490,7 +492,11 @@ const BookParcel = () => {
         <div className="divider"></div>
 
         <div className="mt-4">
-          <button type="submit" className="btn btn-primary text-black w-full">
+          <button
+            disabled={isSubmitting}
+            type="submit"
+            className="btn btn-primary text-black w-full"
+          >
             Proceed to Confirm Booking
           </button>
         </div>

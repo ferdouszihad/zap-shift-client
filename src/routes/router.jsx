@@ -14,6 +14,10 @@ import Pricing from "../pages/Pricing/Pricing";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import PrivateRoute from "./PrivateRoute";
 import RiderRegistraion from "../pages/BeARider/RiderRegistraion";
+import Dashboard from "../layouts/Dashboard";
+import DashboardHome from "../pages/Dashboard/Shared/DashboardHome";
+import UnPaidParcels from "../pages/Dashboard/Marchent/UnPaidParcels";
+import Payment from "../pages/Dashboard/Marchent/Payment";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +51,7 @@ const router = createBrowserRouter([
         ),
         loader: () => fetch("/division.json"),
       },
+
       {
         path: "/about-us",
         element: <AboutUs></AboutUs>,
@@ -75,6 +80,33 @@ const router = createBrowserRouter([
       {
         path: "/terms-and-conditions",
         element: <TermsAndConditions></TermsAndConditions>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "",
+        element: <DashboardHome></DashboardHome>,
+      },
+      {
+        path: "/dashboard/Add-Parcel",
+        element: <BookParcel></BookParcel>,
+        loader: () => fetch("/division.json"),
+      },
+      {
+        path: "/dashboard/parcels/unpaid",
+        element: <UnPaidParcels></UnPaidParcels>,
+      },
+      {
+        path: "/dashboard/payment",
+        element: <Payment></Payment>,
       },
     ],
   },
