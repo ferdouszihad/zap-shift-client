@@ -40,7 +40,10 @@ const UnPaidParcels = () => {
         <p className=" flex gap-2 justify-end items-center">
           Total to Pay -{" "}
           <span className="font-bold text-secondary">{total}৳</span>{" "}
-          <Link to="/dashboard/payment" className="btn btn-primary text-black">
+          <Link
+            to="/dashboard/payment/all"
+            className="btn btn-primary text-black"
+          >
             Pay All
           </Link>
         </p>

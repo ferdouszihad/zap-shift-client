@@ -17,7 +17,7 @@ import RiderRegistraion from "../pages/BeARider/RiderRegistraion";
 import Dashboard from "../layouts/Dashboard";
 import DashboardHome from "../pages/Dashboard/Shared/DashboardHome";
 import UnPaidParcels from "../pages/Dashboard/Marchent/UnPaidParcels";
-import Payment from "../pages/Dashboard/Marchent/Payment";
+import Payment from "../pages/Dashboard/Marchent/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
         element: <UnPaidParcels></UnPaidParcels>,
       },
       {
-        path: "/dashboard/payment",
+        path: "/dashboard/payment/:to",
         element: <Payment></Payment>,
       },
     ],

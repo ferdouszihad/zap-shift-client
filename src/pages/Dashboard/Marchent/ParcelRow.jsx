@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const ParcelRow = ({ parcel, index }) => {
   //   console.log(Object.keys(parcel).join(","));
   const { _id, type, title, charge, receiverName, receiverPhone } = parcel;
@@ -15,7 +17,12 @@ const ParcelRow = ({ parcel, index }) => {
       </td>
       <td>{charge} ৳</td>
       <td className="flex gap-2 flex-wrap justify-end">
-        <button className="btn btn-sm btn-primary text-black">Pay Now</button>
+        <Link
+          to={`/dashboard/payment/${_id}`}
+          className="btn btn-sm btn-primary text-black"
+        >
+          Pay Now
+        </Link>
         <button className="btn btn-sm btn-error">Cancel</button>
       </td>
     </tr>
