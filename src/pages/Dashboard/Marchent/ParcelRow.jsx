@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 import { FaAmazonPay, FaRegEye } from "react-icons/fa";
 
-const ParcelRow = ({ parcel, index }) => {
+const ParcelRow = ({ parcel, index, handleDelete }) => {
   //   console.log(Object.keys(parcel).join(","));
   const { _id, type, title, charge, receiverName, receiverPhone } = parcel;
   return (
@@ -26,12 +26,18 @@ const ParcelRow = ({ parcel, index }) => {
         >
           <FaAmazonPay size={24}></FaAmazonPay>
         </Link>
-        <button className="btn btn-sm btn-error text-base-100">
+        <button
+          onClick={() => handleDelete(_id)}
+          className="btn btn-sm btn-error text-base-100"
+        >
           <MdOutlineDeleteOutline size={24}></MdOutlineDeleteOutline>
         </button>
-        <button className="btn btn-sm btn-secondary text-base-100">
+        <Link
+          to={`/dashboard/parcel/${_id}`}
+          className="btn btn-sm btn-secondary text-base-100"
+        >
           <FaRegEye size={20}></FaRegEye>
-        </button>
+        </Link>
       </td>
     </tr>
   );

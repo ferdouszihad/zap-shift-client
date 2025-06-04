@@ -92,10 +92,10 @@ const CheckOut = () => {
       };
 
       axiosSecure.post("/payment", paymentInfo).then((res) => {
-        if (res.data?.insertedId) {
+        if (res.data?.tracking_no) {
           Swal.fire(
-            "Payment Completed",
-            "Your Delivery Process Started",
+            "Payment Completed ",
+            ` Delivery Process Started. Tracking No.${res.data?.tracking_no}`,
             "success"
           );
         }

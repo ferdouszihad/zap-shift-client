@@ -18,6 +18,9 @@ import Dashboard from "../layouts/Dashboard";
 import DashboardHome from "../pages/Dashboard/Shared/DashboardHome";
 import UnPaidParcels from "../pages/Dashboard/Marchent/UnPaidParcels";
 import Payment from "../pages/Dashboard/Marchent/Payment/Payment";
+import TrackParcel from "../pages/Dashboard/Marchent/TrackParcel";
+import ParcelDetail from "../pages/Dashboard/Shared/ParcelDetail";
+import Trackinng from "../pages/Tracking/Trackinng";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +69,14 @@ const router = createBrowserRouter([
         element: <Pricing></Pricing>,
       },
       {
+        path: "/tracking",
+        element: <Trackinng></Trackinng>,
+      },
+      {
+        path: "/tracking/:id",
+        element: <Trackinng></Trackinng>,
+      },
+      {
         path: "/login",
         element: <Login></Login>,
       },
@@ -105,8 +116,16 @@ const router = createBrowserRouter([
         element: <UnPaidParcels></UnPaidParcels>,
       },
       {
+        path: "/dashboard/parcel/:id",
+        element: <ParcelDetail></ParcelDetail>,
+      },
+      {
         path: "/dashboard/payment/:id",
         element: <Payment></Payment>,
+      },
+      {
+        path: "/dashboard/track-parcel",
+        element: <TrackParcel></TrackParcel>,
       },
     ],
   },

@@ -37,17 +37,16 @@ const Dashboard = () => {
           <MdTrackChanges></MdTrackChanges> Parcel to Paid
           <div className="badge badge-sm badge-secondary">{parcels.length}</div>
         </NavLink>
-        <NavLink to="manage-products">
-          <MdTrackChanges></MdTrackChanges> My Parcels{" "}
+
+        <NavLink to="/dashboard/track-parcel">
+          <CgTrack></CgTrack> Track Parcels
         </NavLink>
+
         <NavLink to="manage-products">
           <FaMoneyBill></FaMoneyBill> Payment History
         </NavLink>
         <NavLink to="manage-products">
           <MdReviews></MdReviews> Manage Reviews
-        </NavLink>
-        <NavLink to="manage-products">
-          <CgTrack></CgTrack> Track Parcels
         </NavLink>
       </li>
     </>

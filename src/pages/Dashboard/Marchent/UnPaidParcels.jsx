@@ -4,10 +4,13 @@ import useUnPaidParcel from "../../../hooks/useUnPaidPercels";
 import ParcelRow from "./ParcelRow";
 import Loading from "../../utils/Loading";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const UnPaidParcels = () => {
-  const { parcels, isLoading } = useUnPaidParcel();
+  const { parcels, isLoading, refetch } = useUnPaidParcel();
   const [total, setTotal] = useState(0);
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     const sum = parcels
@@ -15,6 +18,36 @@ const UnPaidParcels = () => {
       .reduce((acc, p) => acc + p.charge, 0);
     setTotal(sum);
   }, [parcels]);
+
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/parcel/${id}`);
+        if (res.data?.deletedCount > 0) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+          refetch();
+        } else {
+          Swal.fire({
+            title: "Oppsl!",
+            text: "Could Not Delete The Parcel",
+            icon: "error",
+          });
+        }
+      }
+    });
+  };
 
   if (isLoading) return <Loading></Loading>;
 
@@ -27,7 +60,7 @@ const UnPaidParcels = () => {
         }
       ></PageTitle>
 
-      {parcels.filter((parcel) => parcel.status == "unpaid")?.length == 0 && (
+      {parcels.length == 0 && (
         <div className="py-10 flex flex-col justify-center gap-5 items-center">
           <h2 className="text-center text-3xl">
             You have not Booked any parcel yet
@@ -62,6 +95,7 @@ const UnPaidParcels = () => {
                   key={parcel._id}
                   index={index + 1}
                   parcel={parcel}
+                  handleDelete={handleDelete}
                 ></ParcelRow>
               ))}
           </tbody>
