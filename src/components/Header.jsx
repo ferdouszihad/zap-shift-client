@@ -90,7 +90,7 @@ const Header = () => {
                 <Link to="/dashboard">Dashboard</Link>
               </li>
               <li className="border-b-2 border-b-base-300">
-                <Link>Settings</Link>
+                <Link to={"/tracking"}>Track Parcel</Link>
               </li>
               <li className="">
                 <button
@@ -111,8 +111,8 @@ const Header = () => {
           >
             Sign In
           </Link>
-          <Link to="/register" className="">
-            <button className="btn btn-primary text-info">Sign Up</button>
+          <Link to="/tracking" className="">
+            <button className="btn btn-primary text-info">Track Parcel</button>
 
             <button className="btn btn-info text-base-100 btn-circle ">
               <MdArrowOutward size={30} />
