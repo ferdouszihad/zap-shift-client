@@ -16,7 +16,7 @@ function App() {
     });
   }, [location.pathname]);
   return (
-    <div className="bg-base-200 min-h-screen pb-5 scroll-smooth">
+    <div className="bg-base-200 min-h-screen pb-5 scroll-smooth overflow-hidden">
       {user && (
         <p className="bg-primary py-1 text-center font-semibold">
           Welcome Mr. {user?.displayName}

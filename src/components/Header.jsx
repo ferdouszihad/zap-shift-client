@@ -81,7 +81,7 @@ const Header = () => {
             <ul
               tabIndex={0}
               id="user-nav"
-              className="dropdown-content -right-1  !z-50 menu bg-base-100 rounded-box  w-60 p-2 shadow-sm *:py-3 border-b-2 border-b-base-300"
+              className="dropdown-content -right-1  !z-[999] menu bg-base-100 rounded-box  w-60 p-2 shadow-sm *:py-3 border-b-2 border-b-base-300"
             >
               <li className="border-b-2 border-b-base-300">
                 <Link to="/book-parcel">Book a Parcel</Link>

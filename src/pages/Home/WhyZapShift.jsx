@@ -21,6 +21,7 @@ const WhyZapShift = () => {
       {goals.map((goal, index) => (
         <div
           key={`goal-${index}`}
+          data-aos={index % 2 == 0 ? "fade-right" : "fade-left"}
           className="card md:card-side items-center bg-base-100 shadow-sm p-5 gap-5 rounded-xl "
         >
           <figure className="">

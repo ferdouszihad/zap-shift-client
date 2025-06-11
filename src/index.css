@@ -21,14 +21,19 @@
 .container {
   @apply lg:w-11/12 px-2 mx-auto;
 }
+a {
+  transition: all 0.3s;
+}
 
 a:hover {
-  @apply font-bold;
+  @apply bg-primary rounded-full text-black;
 }
 a.active {
-  @apply font-bold;
+  @apply bg-primary rounded-full text-black;
 }
-
+.logo:hover {
+  @apply bg-base-100;
+}
 .banner .swiper-pagination {
   width: 150px !important;
   left: 40px !important;

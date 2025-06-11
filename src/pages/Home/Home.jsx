@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div>
       <title>ZapShift | Home</title>
-      <section className="container">
+      <section className="container" data-aos="fade-in">
         <Banner></Banner>
       </section>
       <section className="container my-20">

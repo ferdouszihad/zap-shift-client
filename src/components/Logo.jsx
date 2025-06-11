@@ -4,7 +4,7 @@ const Logo = ({ dark = false }) => {
   return (
     <Link
       to="/"
-      className={`flex items-center gap-2 text-2xl font-bold text-info ${
+      className={`flex items-center gap-2 text-2xl font-bold text-info logo ${
         dark && "text-white"
       }`}
     >

@@ -1,7 +1,9 @@
+import { Link } from "react-router";
 import locationMarchent from "../../assets/location-marchant.png";
 const BeAmerchant = () => {
   return (
     <div
+      data-aos="zoom-in"
       className={`bg-[#03373D] bg-[url(/be-amerchant-bg.png)] bg-no-repeat rounded-xl bg-blend-lighten  flex flex-col-reverse md:flex-row items-center p-10`}
     >
       <div className="flex-2 text-base-100 space-y-5 text-center md:text-left">
@@ -14,12 +16,18 @@ const BeAmerchant = () => {
           every corner of Bangladesh right on time.
         </p>
         <div className="flex gap-4 flex-wrap justify-center md:justify-start">
-          <button className="btn btn-primary text-black rounded-full">
+          <Link
+            to={"/register"}
+            className="btn btn-primary text-black rounded-full relative"
+          >
             Become a Merchant
-          </button>
-          <button className="btn btn-primary  rounded-full btn-outline">
+          </Link>
+          <Link
+            to="/be-a-rider"
+            className="btn btn-primary hover:text-black  rounded-full btn-outline"
+          >
             Earn with ZapShift
-          </button>
+          </Link>
         </div>
       </div>
       <div className="flex-1">

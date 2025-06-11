@@ -41,6 +41,7 @@ const Services = () => {
       <div className="grid  md:grid-cols-2  lg:grid-cols-3 gap-5 w-11/12 mx-auto my-10">
         {services.map((service, index) => (
           <div
+            data-aos="fade-up"
             key={`service-${index}`}
             className="bg-base-100 p-5 hover:bg-primary cursor-pointer rounded-xl flex flex-col duration-200  justify-center items-center gap-5 text-center"
           >

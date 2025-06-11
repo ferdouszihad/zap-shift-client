@@ -3,7 +3,7 @@ import tdelivery from "../../../assets/tiny-deliveryman.png";
 import bdelivery from "../../../assets/big-deliveryman.png";
 const Content1 = () => {
   return (
-    <div className="flex justify-between items-center gap-20 p-10 bg-red-100">
+    <div className="flex justify-between items-center gap-20 p-10 ">
       <div className="flex-1 space-y-5">
         <img className="w-[150px]" src={tdelivery} alt="" />
         <h1 className="text-5xl font-black">

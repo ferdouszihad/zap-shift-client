@@ -25,6 +25,7 @@ const HowItWorks = () => {
         {works.map((work, index) => (
           <div
             key={`how-${index}`}
+            data-aos="fade-up"
             className="bg-base-100 rounded-xl p-5 space-y-5"
           >
             <img src={bookingIcon} alt="" />

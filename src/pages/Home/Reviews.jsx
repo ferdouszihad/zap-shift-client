@@ -16,7 +16,10 @@ const Reviews = () => {
   // console.log(windowSize);
   return (
     <div>
-      <div className="w-full lg:w-7/12 mx-auto flex flex-col justify-center items-center gap-5 text-center pb-10">
+      <div
+        data-aos="fade-up"
+        className="w-full lg:w-7/12 mx-auto flex flex-col justify-center items-center gap-5 text-center pb-10"
+      >
         <img className="w-[244px]" src={customerTopImg} alt="" />
         <h2 className="text-4xl font-bold text-secondary">
           What our customers are sayings

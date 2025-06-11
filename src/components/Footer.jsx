@@ -5,7 +5,11 @@ import SocialIcons from "./SocialIcons";
 
 const Footer = () => {
   return (
-    <div className="container bg-black rounded-xl py-10">
+    <div
+      data-aos="fade-in"
+      data-aos-duration="1500"
+      className="container bg-black rounded-xl py-10"
+    >
       <div className="flex justify-center flex-col items-center gap-10 text-center">
         <Logo dark={true}></Logo>
 
@@ -16,7 +20,7 @@ const Footer = () => {
             deliver on time, every time.
           </p>
         </div>
-        <ul className="flex lg:flex-row flex-col gap-5 text-base-200">
+        <ul className="flex lg:flex-row flex-col gap-5 text-base-200 *:*:px-2">
           <Navigation></Navigation>
         </ul>
         <div className="">

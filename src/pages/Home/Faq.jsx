@@ -1,6 +1,6 @@
 const Faq = () => {
   return (
-    <div>
+    <div data-aos="fade-up">
       <div className="lg:w-7/12 mx-auto flex flex-col justify-center items-center gap-5 text-center pb-10">
         <h2 className="text-4xl font-bold text-secondary">
           Frequently Asked Question (FAQ)

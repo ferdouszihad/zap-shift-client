@@ -5,12 +5,12 @@ import { FaRegPaperPlane } from "react-icons/fa6";
 const WareHouseCard = ({ data }) => {
   const { region, district, covered_area, longitude, latitude } = data;
   return (
-    <div className="card lg:card-side bg-base-100 shadow-sm">
+    <div className=" flex items-center bg-base-100 shadow-sm">
       <figure className="lg:flex-1">
         <iframe
           width="100%"
           className="border-0"
-          height="450"
+          height="250"
           loading="lazy"
           allowFullScreen
           referrerPolicy="no-referrer-when-downgrade"
