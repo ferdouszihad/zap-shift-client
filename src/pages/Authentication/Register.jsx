@@ -99,7 +99,7 @@ const Register = () => {
       });
   };
   return (
-    <div className="container py-10 gap-10">
+    <div className="content-box py-10 gap-10">
       <h2 className="text-5xl font-bold text-center pb-5">
         Sign up as a <span className="text-secondary">Merchant</span>
       </h2>

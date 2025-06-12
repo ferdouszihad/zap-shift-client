@@ -52,7 +52,7 @@ const UnPaidParcels = () => {
   if (isLoading) return <Loading></Loading>;
 
   return (
-    <div className="container">
+    <div className="content-box">
       <PageTitle
         title={"Parcels To Paid"}
         subtitle={

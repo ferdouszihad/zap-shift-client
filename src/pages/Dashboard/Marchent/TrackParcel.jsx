@@ -10,7 +10,7 @@ const TrackParcel = () => {
   if (isLoading) return <Loading></Loading>;
 
   return (
-    <div className="container">
+    <div className="content-box">
       <PageTitle
         title={"Track Your Parcels"}
         subtitle={

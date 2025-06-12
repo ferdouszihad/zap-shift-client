@@ -7,7 +7,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_stripe_public_key);
 const Payment = () => {
   console.log(stripePromise);
   return (
-    <div className="container">
+    <div className="content-box">
       <PageTitle
         title={"Payment"}
         subtitle={"please Pay to initiate the delivery process"}

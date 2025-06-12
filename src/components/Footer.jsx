@@ -8,7 +8,7 @@ const Footer = () => {
     <div
       data-aos="fade-in"
       data-aos-duration="1500"
-      className="container bg-black rounded-xl py-10"
+      className="content-box bg-black rounded-xl py-10"
     >
       <div className="flex justify-center flex-col items-center gap-10 text-center">
         <Logo dark={true}></Logo>

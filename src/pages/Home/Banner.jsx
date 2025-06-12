@@ -5,7 +5,7 @@ import banner2 from "../../assets/banner2.png";
 import banner3 from "../../assets/banner3.png";
 const Banner = () => {
   return (
-    <div className="my-10 rounded-xl banner-container cursor-pointer">
+    <div className="my-10 rounded-xl banner-content-box cursor-pointer">
       <Carousel
         autoPlay={true}
         infiniteLoop={true}

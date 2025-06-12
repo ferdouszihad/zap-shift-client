@@ -4,7 +4,7 @@ import WhyZapShift from "../Home/WhyZapShift";
 
 const ServicePage = () => {
   return (
-    <div className="container ">
+    <div className="content-box ">
       <PageTitle
         title={"Our Services"}
         subtitle={"Let's Explore All our Services "}

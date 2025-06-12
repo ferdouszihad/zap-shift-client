@@ -22,7 +22,7 @@ function App() {
           Welcome Mr. {user?.displayName}
         </p>
       )}
-      <header className="container py-5 ">
+      <header className="content-box py-5 ">
         <Header></Header>
       </header>
       <main className="min-h-[calc(100vh-480px)]">

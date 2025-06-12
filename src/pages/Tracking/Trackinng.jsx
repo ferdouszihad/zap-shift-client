@@ -26,7 +26,7 @@ const Trackinng = () => {
   };
 
   return (
-    <div className="container">
+    <div className="content-box">
       <PageTitle
         title={"Track Your Consignment"}
         subtitle={"Now you can easily track your consignment"}

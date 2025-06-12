@@ -133,7 +133,7 @@ const BookParcel = () => {
   };
 
   return (
-    <div className="rounded-xl pb-5 container">
+    <div className="rounded-xl pb-5 content-box">
       <PageTitle
         title={"Book Parcel Delivery"}
         subtitle={

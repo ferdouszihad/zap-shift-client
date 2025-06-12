@@ -35,7 +35,7 @@ const Login = () => {
       });
   };
   return (
-    <div className="container py-10">
+    <div className="content-box py-10">
       <h2 className="text-5xl font-bold text-center pb-5">
         Welcome !! <span className="text-secondary">Let's Login</span>
       </h2>

@@ -11,7 +11,7 @@ const CoverageWithSingleMap = () => {
     setLongitude(long);
   };
   return (
-    <div className="container">
+    <div className="content-box">
       <PageTitle
         title={"Our Coverage"}
         subtitle={"We provide Service across each of the part of bangladesh"}

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-  baseURL: "https://zap-shift-server.vercel.app",
+  baseURL: import.meta.env.VITE_SERVER,
 });
 
 const useAxios = () => {

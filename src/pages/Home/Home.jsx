@@ -11,28 +11,28 @@ const Home = () => {
   return (
     <div>
       <title>ZapShift | Home</title>
-      <section className="container" data-aos="fade-in">
+      <section className="content-box" data-aos="fade-in">
         <Banner></Banner>
       </section>
-      <section className="container my-20">
+      <section className="content-box my-20">
         <HowItWorks></HowItWorks>
       </section>
-      <section className="container my-20">
+      <section className="content-box my-20">
         <Services></Services>
       </section>
-      <section className="container my-20">
+      <section className="content-box my-20">
         <Brands></Brands>
       </section>
-      <section className="container my-20 border-t border-b border-info border-dashed py-20">
+      <section className="content-box my-20 border-t border-b border-info border-dashed py-20">
         <WhyZapShift></WhyZapShift>
       </section>
-      <section className="container my-20">
+      <section className="content-box my-20">
         <BeAmerchant></BeAmerchant>
       </section>
-      <section className="container my-20">
+      <section className="content-box my-20">
         <Reviews></Reviews>
       </section>
-      <section className="container my-20">
+      <section className="content-box my-20">
         <Faq></Faq>
       </section>
     </div>

@@ -13,13 +13,34 @@
   --color-base-200: #eaeced;
   --color-accent: #606060;
 }
+.tab-list {
+  display: flex;
+  gap: 1rem;
+  border: none;
+  margin-bottom: 1rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: normal;
+  background: none;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.tab-selected {
+  font-weight: bold;
+  @apply text-xl;
+}
 
 * {
   font-family: "Urbanist", sans-serif;
+  box-sizing: border-box;
 }
 
-.container {
-  @apply lg:w-11/12 px-2 mx-auto;
+.content-box {
+  @apply lg:w-11/12  mx-auto;
 }
 a {
   transition: all 0.3s;
