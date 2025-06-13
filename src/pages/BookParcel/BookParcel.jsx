@@ -133,9 +133,9 @@ const BookParcel = () => {
   };
 
   return (
-    <div className="rounded-xl pb-5 content-box">
+    <div className=" pb-5 content-box bg-base-100 my-5 p-10 rounded-2xl">
       <PageTitle
-        title={"Book Parcel Delivery"}
+        title={"Add Parcel"}
         subtitle={
           "Our Pick up agent will pick up your product from your location in a short"
         }
@@ -177,7 +177,7 @@ const BookParcel = () => {
             <p className="text-red-500 text-sm mt-1">{errors.type.message}</p>
           )}
         </div>
-
+        {/* parcel info   */}
         <div className="flex gap-2">
           {/* Parcel Name */}
           <div className="flex-1">
@@ -224,6 +224,8 @@ const BookParcel = () => {
           )}
         </div>
         <div className="divider"></div>
+
+        <div className="grid lg:grid-cols-2 gap-5"></div>
 
         <div className="sender">
           <h2 className="text-xl font-bold border-l-4 pl-4 my-6">
@@ -357,7 +359,7 @@ const BookParcel = () => {
 
         <div className="divider"></div>
 
-        <div className="">
+        <div className="reciever">
           <h2 className="text-xl font-bold border-l-4 pl-4 my-6">
             Receiver Information
           </h2>

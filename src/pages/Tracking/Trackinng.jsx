@@ -2,6 +2,8 @@ import { useState } from "react";
 import PageTitle from "../../components/PageTitle";
 import useAxios from "../../hooks/useAxios";
 import { format } from "date-fns";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import deliveryVan from "../../assets/delivery-van.png";
 
 const Trackinng = () => {
   const axios = useAxios();
@@ -14,8 +16,8 @@ const Trackinng = () => {
     const tracking_no = e.target.tracking_no.value;
     axios.get(`/tracking/${tracking_no}`).then((res) => {
       if (res.data?.status === true) {
-        setHistory(res.data.history);
-        setParcel(res.data.parcelInfo);
+        setHistory(res.data?.history);
+        setParcel(res.data?.parcelInfo);
         setNotFound(false);
       } else {
         setParcel(null);
@@ -26,21 +28,26 @@ const Trackinng = () => {
   };
 
   return (
-    <div className="content-box">
+    <div className="content-box bg-base-100 my-5 p-10 rounded-2xl">
       <PageTitle
         title={"Track Your Consignment"}
         subtitle={"Now you can easily track your consignment"}
       />
 
       <div className="search my-4 flexitems-center">
-        <form onSubmit={handleTracking} className="flex gap-2">
+        <form
+          onSubmit={handleTracking}
+          className="flex gap-2 relative pb-10 border-b-2 border-stone-200"
+        >
           <input
             name="tracking_no"
-            className="input input-bordered w-full max-w-2xl rounded-full"
+            className="input input-bordered bg-base-300 w-full max-w-2xl rounded-full pl-8"
             type="number"
             max={999999}
             placeholder="Search with Your Tracking Code"
           />
+          <FaMagnifyingGlass className="absolute top-3 left-2"></FaMagnifyingGlass>
+
           <button
             className="btn btn-primary px-10 text-black rounded-full relative right-[50px] z-10"
             type="submit"
@@ -51,16 +58,23 @@ const Trackinng = () => {
       </div>
 
       {notFound && (
-        <p className="text-center text-red-500 font-semibold">
-          Tracking info not found
-        </p>
+        <div className="flex flex-col justify-center items-center">
+          <div className="img">
+            <img src={deliveryVan} alt="" />
+          </div>
+          <p className="text-center text-xl text-secondary font-semibold">
+            Opp! Tracking info not found with this Tracking_No
+          </p>
+        </div>
       )}
 
       {parcel && (
-        <div className="grid md:grid-cols-2 gap-4 bg-base-100 p-6 rounded-lg shadow-md">
+        <div className="grid md:grid-cols-2 gap-4 ">
           {/* Product Details */}
-          <div>
-            <h2 className="text-lg font-semibold mb-4">Product details</h2>
+          <div className="bg-base-200 rounded-xl p-5 space-y-5">
+            <h2 className="text-2xl text-secondary font-bold mb-4">
+              Product details
+            </h2>
             <p>
               <strong>Date:</strong>{" "}
               {format(new Date(parcel.created_at), "MMM dd, yyyy hh:mm a")}
@@ -105,8 +119,10 @@ const Trackinng = () => {
           </div>
 
           {/* Tracking Updates */}
-          <div>
-            <h2 className="text-lg font-semibold mb-4">Tracking Updates</h2>
+          <div className="bg-base-300 p-5 rounded-xl">
+            <h2 className="text-xl text-secondary font-bold mb-4">
+              Tracking Updates
+            </h2>
             <ul className="timeline timeline-vertical">
               {history.map((item, index) => (
                 <li key={item._id}>
