@@ -62,7 +62,7 @@ const Header = () => {
       </div>
       {user && user?.email ? (
         <div className="navbar-end gap-3">
-          <div className="dropdown dropdown-end">
+          <div className="dropdown dropdown-end" style={{ zIndex: 1000 }}>
             <div
               tabIndex={0}
               role="button"
@@ -82,6 +82,7 @@ const Header = () => {
               tabIndex={0}
               id="user-nav"
               className="dropdown-content -right-1  !z-[999] menu bg-base-100 rounded-box  w-60 p-2 shadow-sm *:py-3 border-b-2 border-b-base-300"
+              style={{ zIndex: 1000 }}
             >
               <li className="border-b-2 border-b-base-300">
                 <Link to="/book-parcel">Book a Parcel</Link>

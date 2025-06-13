@@ -1,16 +1,16 @@
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import PageTitle from "../../../components/PageTitle";
-import usePaidParcel from "../../../hooks/usePaidParcel";
+import useUserParcel from "../../../hooks/useUserParcel";
 import Loading from "../../utils/Loading";
 
 import TrackParcelRow from "./TrackParcelRow";
 
 const TrackParcel = () => {
-  const { parcels, isLoading } = usePaidParcel();
-
+  const { parcels, isLoading } = useUserParcel();
   if (isLoading) return <Loading></Loading>;
 
   return (
-    <div className="content-box">
+    <div className="content-box pt-5">
       <PageTitle
         title={"Track Your Parcels"}
         subtitle={
@@ -21,6 +21,7 @@ const TrackParcel = () => {
       <p className=" border-l-4 border-secondary pl-4">
         Total <span>{parcels.length}</span> Parcels Found
       </p>
+
       <div className="overflow-x-auto pt-5 rounded-box border border-base-content/5 bg-base-100">
         <table className="table ">
           {/* head */}
@@ -30,7 +31,7 @@ const TrackParcel = () => {
               <th>Parcel Info</th>
               <th>Recivier Info</th>
               <th>Tracking No.</th>
-              <th>Payment Info</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>

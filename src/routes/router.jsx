@@ -23,6 +23,7 @@ import ParcelDetail from "../pages/Dashboard/Shared/ParcelDetail";
 import Trackinng from "../pages/Tracking/Trackinng";
 import AuthLayouts from "../layouts/AuthLayouts";
 import ForgetPass from "../pages/Authentication/ForgetPass";
+import PaymentHistory from "../pages/Dashboard/Marchent/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -135,6 +136,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/payment/:id",
         element: <Payment></Payment>,
+      },
+      {
+        path: "/dashboard/payment-history",
+        element: <PaymentHistory></PaymentHistory>,
       },
       {
         path: "/dashboard/track-parcel",

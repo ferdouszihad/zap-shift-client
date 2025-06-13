@@ -2,24 +2,24 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 
-const usePaidParcel = () => {
+const usePayments = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const {
-    data: parcels = [],
+    data: payments = [],
     isLoading,
     error,
     refetch,
   } = useQuery({
-    queryKey: ["parcels-paid", user?.email],
+    queryKey: ["payments", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcel/${user?.email}?status=paid`);
+      const res = await axiosSecure.get(`/payments/all/${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email,
   });
 
-  return { parcels, isLoading, error, refetch };
+  return { payments, isLoading, error, refetch };
 };
 
-export default usePaidParcel;
+export default usePayments;

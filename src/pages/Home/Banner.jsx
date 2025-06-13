@@ -7,6 +7,7 @@ const Banner = () => {
   return (
     <div className="my-10 rounded-xl banner-content-box cursor-pointer">
       <Carousel
+        className="relative z-1"
         autoPlay={true}
         infiniteLoop={true}
         emulateTouch={true}

@@ -1,22 +1,25 @@
 import { CgAdd, CgFormatColor, CgTrack } from "react-icons/cg";
 import { FaBars, FaGear } from "react-icons/fa6";
 import { NavLink, Outlet, useNavigate, useNavigation } from "react-router";
-import { BiLogOutCircle } from "react-icons/bi";
+import { BiLogOutCircle, BiUserCircle } from "react-icons/bi";
 
 import { MdReviews, MdTrackChanges } from "react-icons/md";
 import { FaJediOrder, FaMoneyBill } from "react-icons/fa";
 import { HiComputerDesktop, HiHome } from "react-icons/hi2";
-import { GrGrid } from "react-icons/gr";
+import { GrDeliver, GrGrid } from "react-icons/gr";
 import useAuth from "../hooks/useAuth";
 import Logo from "../components/Logo";
 import Loading from "../pages/utils/Loading";
 import useUnPaidParcel from "../hooks/useUnPaidPercels";
+import useUserRole from "../hooks/useUserRole";
+import { BsHouseFill } from "react-icons/bs";
 
 const Dashboard = () => {
   const { logOut } = useAuth();
   const navigate = useNavigate();
   const { state } = useNavigation();
   const { parcels } = useUnPaidParcel("unpaid");
+  const { role } = useUserRole();
   console.log(parcels);
 
   const handleLogOut = () => {
@@ -28,26 +31,57 @@ const Dashboard = () => {
     <>
       <li>
         <NavLink to="/dashboard">
-          <HiHome></HiHome> Marchent Home
+          <HiHome></HiHome> {role.toUpperCase()} Home
         </NavLink>
-        <NavLink to="add-parcel">
-          <CgAdd></CgAdd> Add a Parcel
-        </NavLink>
-        <NavLink to="/dashboard/parcels/unpaid">
-          <MdTrackChanges></MdTrackChanges> Parcel to Paid
-          <div className="badge badge-sm badge-secondary">{parcels.length}</div>
-        </NavLink>
+        {role == "merchant" && (
+          <>
+            <NavLink to="add-parcel">
+              <CgAdd></CgAdd> Add a Parcel
+            </NavLink>
+            <NavLink to="/dashboard/parcels/unpaid">
+              <MdTrackChanges></MdTrackChanges> Parcel To Pay
+              <div className="badge badge-sm badge-secondary">
+                {parcels.length}
+              </div>
+            </NavLink>
 
-        <NavLink to="/dashboard/track-parcel">
-          <CgTrack></CgTrack> Track Parcels
-        </NavLink>
+            <NavLink to="/dashboard/track-parcel">
+              <CgTrack></CgTrack> Track Parcels
+            </NavLink>
 
-        <NavLink to="manage-products">
-          <FaMoneyBill></FaMoneyBill> Payment History
-        </NavLink>
-        <NavLink to="manage-products">
-          <MdReviews></MdReviews> Manage Reviews
-        </NavLink>
+            <NavLink to="payment-history">
+              <FaMoneyBill></FaMoneyBill> Payment History
+            </NavLink>
+            <NavLink to="manage-products">
+              <MdReviews></MdReviews> Manage Reviews
+            </NavLink>
+          </>
+        )}
+        {role == "admin" && (
+          <>
+            <NavLink to="manage-user">
+              <BiUserCircle></BiUserCircle> Manage User
+            </NavLink>
+            <NavLink to="manage-parcels">
+              <MdReviews></MdReviews> Manage Parcels
+            </NavLink>
+
+            <NavLink to="manage-agents">
+              <GrDeliver></GrDeliver> Manage Agents
+            </NavLink>
+            <NavLink to="agent-requests">
+              <GrDeliver></GrDeliver> Agent Requests
+            </NavLink>
+
+            <NavLink to="manage-warehouse">
+              <BsHouseFill></BsHouseFill> Manage WareHouse
+            </NavLink>
+
+            <NavLink to="all-payments">
+              <FaMoneyBill></FaMoneyBill> All Payments
+            </NavLink>
+          </>
+        )}
       </li>
     </>
   );
@@ -79,11 +113,11 @@ const Dashboard = () => {
         ></label>
         <ul className="menu glass bg-base-200 text-base-content min-h-full w-60 px-4 space-y-3">
           {/* Sidebar content here */}
-          <div>
+          <div className="pt-5">
             <Logo></Logo>
             <div className="divider"></div>
           </div>
-          {nav}
+          <div className="*:space-y-5">{nav}</div>
           <div className="divider"></div>
           <li className="">
             <NavLink to="/dashboard/me">

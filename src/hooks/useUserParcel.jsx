@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 
-const useUnPaidParcel = () => {
+const useUserParcel = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const {
@@ -11,15 +11,16 @@ const useUnPaidParcel = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["parcels", user?.email],
+    queryKey: ["parcels-paid", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcel/unpaid/${user?.email}`);
+      const res = await axiosSecure.get(`/parcel/all/${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email,
+    keepPreviousData: true,
   });
 
   return { parcels, isLoading, error, refetch };
 };
 
-export default useUnPaidParcel;
+export default useUserParcel;

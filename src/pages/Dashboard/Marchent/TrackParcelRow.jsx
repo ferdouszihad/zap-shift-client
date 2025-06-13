@@ -32,8 +32,11 @@ const TrackParcelRow = ({ parcel, index }) => {
     title,
     charge,
     receiverName,
+
     receiverPhone,
+
     receiverAddress,
+
     recieverRegion,
     tracking_no,
     status,
@@ -66,9 +69,10 @@ const TrackParcelRow = ({ parcel, index }) => {
         </td>
         <td>
           <h2>
-            {charge} ৳ ({status})
+            {status} ({charge} ৳)
           </h2>
         </td>
+
         <td className="space-x-3">
           <Link
             to={`/dashboard/parcel/${_id}`}
@@ -79,6 +83,7 @@ const TrackParcelRow = ({ parcel, index }) => {
           <button
             className="btn btn-sm btn-primary text-black"
             onClick={() => handleTracking(tracking_no)}
+            disabled={!tracking_no}
           >
             <CgTrack size={20} />
           </button>
