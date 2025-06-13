@@ -7,7 +7,7 @@ import useAxios from "../hooks/useAxios";
 import Swal from "sweetalert2";
 
 const SocialLogin = () => {
-  const { googleLogin, setUser, fbLogin } = useAuth();
+  const { googleLogin, setUser } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxios();
   const location = useLocation();
@@ -35,31 +35,15 @@ const SocialLogin = () => {
     });
   };
 
-  const handleFbLogin = () => {
-    fbLogin().then((res) => {
-      setUser(res.user);
-      navigate("/");
-    });
-  };
   return (
-    <div className="flex justify-between">
+    <div className="mt-3">
       <button
         onClick={handleGoogleLogin}
         type="button"
-        className="btn btn-outline btn-neutral"
+        className="btn btn-block"
       >
-        Login with <FcGoogle></FcGoogle>
-      </button>
-      <button
-        onClick={handleFbLogin}
-        type="button"
-        className="btn btn-outline btn-neutral  "
-      >
-        Login with{" "}
-        <BiLogoFacebookCircle
-          className="text-blue-500"
-          size={20}
-        ></BiLogoFacebookCircle>
+        <FcGoogle size={20}></FcGoogle>
+        Login with Google
       </button>
     </div>
   );

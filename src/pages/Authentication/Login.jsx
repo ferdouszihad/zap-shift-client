@@ -1,5 +1,4 @@
 import Lottie from "react-lottie";
-import loginAnimation from "../../assets/json/login.json";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import SubmitBtn from "../../components/SubmitBtn";
@@ -19,7 +18,10 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    watch,
   } = useForm();
+
+  const email = watch("email");
   const onSubmit = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     // console.log(data);
@@ -35,110 +37,97 @@ const Login = () => {
       });
   };
   return (
-    <div className="content-box py-10">
-      <h2 className="text-5xl font-bold text-center pb-5">
-        Welcome !! <span className="text-secondary">Let's Login</span>
-      </h2>
-      <div className=" flex flex-col-reverse md:flex-row  items-center">
-        <div className="flex-1 w-full">
-          <div className="card bg-base-100 w-full mx-auto lg:max-w-sm lg:shrink-0 shadow-2xl">
-            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-              <fieldset className="fieldset">
-                {/* email  */}
-                <label className="label">Your Email</label>
-                {errors.email && (
-                  <p className="text-error text-xs">{errors.email.message}</p>
-                )}
+    <div className="content-box p-10 my-5">
+      <h2 className="text-4xl font-black pb-2 ">Welcome Back</h2>
+      <p className="font-semibold">Login with ZapShift</p>
+      <div className="flex-1 w-full mt-5">
+        <div className="bg-base-100 w-full md:max-w-sm ">
+          <form onSubmit={handleSubmit(onSubmit)} className="">
+            <fieldset className="fieldset">
+              {/* email  */}
+              <label className="label">Your Email</label>
+              {errors.email && (
+                <p className="text-error text-xs">{errors.email.message}</p>
+              )}
+              <input
+                type="email"
+                className={`input w-full ${
+                  errors?.email ? "input-error" : "input-success"
+                } `}
+                placeholder="Enter Your Email"
+                {...register("email", {
+                  required: "please submit your email address",
+                })}
+              />
+              {/* password   */}
+              <label className="label">Enter your Password</label>
+              {errors.password && (
+                <p className="text-error text-xs">{errors.password.message}</p>
+              )}
+              <div className="relative">
                 <input
-                  type="email"
+                  type={`${showPassword ? "text" : "password"}`}
                   className={`input w-full ${
-                    errors?.email ? "input-error" : "input-success"
+                    errors?.password ? "input-error" : "input-success"
                   } `}
-                  placeholder="Enter Your Email"
-                  {...register("email", {
-                    required: "please submit your email address",
+                  placeholder="Password"
+                  {...register("password", {
+                    required: "please submit your password too",
                   })}
                 />
-                {/* password   */}
-                <label className="label">Enter your Password</label>
-                {errors.password && (
-                  <p className="text-error text-xs">
-                    {errors.password.message}
-                  </p>
-                )}
-                <div className="relative">
-                  <input
-                    type={`${showPassword ? "text" : "password"}`}
-                    className={`input w-full ${
-                      errors?.password ? "input-error" : "input-success"
-                    } `}
-                    placeholder="Password"
-                    {...register("password", {
-                      required: "please submit your password too",
-                    })}
-                  />
-                  <div className="absolute right-6 bottom-2 z-10">
-                    <FaEye
-                      onClick={() => setShowPassWord(true)}
-                      className={`text-accent cursor-pointer ${
-                        showPassword ? "hidden" : "block"
-                      }`}
-                      size={20}
-                    ></FaEye>
+                <div className="absolute right-6 bottom-2 z-10">
+                  <FaEye
+                    onClick={() => setShowPassWord(true)}
+                    className={`text-accent cursor-pointer ${
+                      showPassword ? "hidden" : "block"
+                    }`}
+                    size={20}
+                  ></FaEye>
 
-                    <FaEyeSlash
-                      onClick={() => setShowPassWord(false)}
-                      className={`text-accent cursor-pointer ${
-                        showPassword ? "block" : "hidden"
-                      }`}
-                      size={20}
-                    ></FaEyeSlash>
-                  </div>
+                  <FaEyeSlash
+                    onClick={() => setShowPassWord(false)}
+                    className={`text-accent cursor-pointer ${
+                      showPassword ? "block" : "hidden"
+                    }`}
+                    size={20}
+                  ></FaEyeSlash>
                 </div>
+              </div>
 
-                <div>
-                  <Link className="link link-hover">Forgot password?</Link>
-                </div>
-
-                {loginError && (
-                  <p className="text-error text-xs">{loginError}</p>
-                )}
-
-                <button
-                  disabled={isSubmitting}
-                  className="btn btn-neutral mt-4"
+              <div>
+                <Link
+                  state={{ email, location: location.state }}
+                  to="/forget-password"
+                  className="link link-hover"
                 >
-                  Login Now
-                </button>
+                  Forgot password?
+                </Link>
+              </div>
 
-                <div className="mt-3">
-                  <p>
-                    Don't have an Account ?{" "}
-                    <Link
-                      to="/register"
-                      className="link link-hover text-secondary font-semibold"
-                      state={location.state}
-                    >
-                      Register Now
-                    </Link>
-                  </p>
-                </div>
-              </fieldset>
-              <SocialLogin></SocialLogin>
-            </form>
-          </div>
-        </div>
-        <div className="flex-1">
-          <div className="max-w-[200px] md:max-w-[350px] mx-auto">
-            <Lottie
-              className="w-full"
-              options={{
-                animationData: loginAnimation,
-                autoplay: true,
-                loop: false,
-              }}
-            ></Lottie>
-          </div>
+              {loginError && <p className="text-error text-xs">{loginError}</p>}
+
+              <button
+                disabled={isSubmitting}
+                className="btn btn-primary text-black mt-4"
+              >
+                Login Now
+              </button>
+
+              <div className="mt-3">
+                <p>
+                  Don't have an Account ?{" "}
+                  <Link
+                    to="/register"
+                    className="link link-hover text-secondary font-semibold"
+                    state={location.state}
+                  >
+                    Register Now
+                  </Link>
+                </p>
+              </div>
+            </fieldset>
+            <SocialLogin></SocialLogin>
+          </form>
         </div>
       </div>
     </div>

@@ -21,6 +21,8 @@ import Payment from "../pages/Dashboard/Marchent/Payment/Payment";
 import TrackParcel from "../pages/Dashboard/Marchent/TrackParcel";
 import ParcelDetail from "../pages/Dashboard/Shared/ParcelDetail";
 import Trackinng from "../pages/Tracking/Trackinng";
+import AuthLayouts from "../layouts/AuthLayouts";
+import ForgetPass from "../pages/Authentication/ForgetPass";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +78,21 @@ const router = createBrowserRouter([
         path: "/tracking/:id",
         element: <Trackinng></Trackinng>,
       },
+
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy></PrivacyPolicy>,
+      },
+      {
+        path: "/terms-and-conditions",
+        element: <TermsAndConditions></TermsAndConditions>,
+      },
+    ],
+  },
+  {
+    path: "",
+    element: <AuthLayouts></AuthLayouts>,
+    children: [
       {
         path: "/login",
         element: <Login></Login>,
@@ -85,12 +102,8 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
       {
-        path: "/privacy-policy",
-        element: <PrivacyPolicy></PrivacyPolicy>,
-      },
-      {
-        path: "/terms-and-conditions",
-        element: <TermsAndConditions></TermsAndConditions>,
+        path: "/forget-password",
+        element: <ForgetPass></ForgetPass>,
       },
     ],
   },

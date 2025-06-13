@@ -1,15 +1,13 @@
 import Lottie from "react-lottie";
-import registerAnimation from "../../assets/json/register.json";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import SubmitBtn from "../../components/SubmitBtn";
 import { useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAxios from "../../hooks/useAxios";
 import SocialLogin from "../../components/SocialLogin";
-import { MdDeliveryDining } from "react-icons/md";
 import Swal from "sweetalert2";
+import imageUploadIcon from "../../assets/image-upload-icon.png";
 
 const Register = () => {
   const { createUser, updateUser, setUser } = useAuth();
@@ -18,13 +16,6 @@ const Register = () => {
   const [activeAvatar, setActiveAvatar] = useState("");
   const [imgError, setimgError] = useState("");
   const [isUploading, setIsUploading] = useState(false);
-  const [avatar, setAvatar] = useState([
-    "https://img.icons8.com/?size=96&id=81120&format=png",
-    "https://img.icons8.com/?size=96&id=80989&format=png",
-    "https://img.icons8.com/?size=96&id=80615&format=png",
-    "https://img.icons8.com/?size=96&id=81026&format=png",
-    "https://img.icons8.com/?size=96&id=81802&format=png",
-  ]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -53,7 +44,6 @@ const Register = () => {
     });
 
     if (res.data.success) {
-      setAvatar([...avatar, res.data.data.display_url]);
       setActiveAvatar(res.data.data.display_url);
       setIsUploading(false);
     } else {
@@ -99,176 +89,145 @@ const Register = () => {
       });
   };
   return (
-    <div className="content-box py-10 gap-10">
-      <h2 className="text-5xl font-bold text-center pb-5">
-        Sign up as a <span className="text-secondary">Merchant</span>
-      </h2>
-      <div className=" flex flex-col-reverse md:flex-row-reverse  items-center">
-        <div className="flex-1 w-full">
-          <div className="card bg-base-100 w-full mx-auto lg:max-w-sm shrink-0 shadow-2xl">
-            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-              <fieldset className="fieldset">
-                {/* name  */}
-                <label className="label">Your Name</label>
-                {errors.name && (
-                  <p className="text-error text-xs">{errors.name.message}</p>
-                )}
-                <input
-                  type="text"
-                  className={`input w-full ${
-                    errors?.name ? "input-error" : "input-success"
-                  } `}
-                  placeholder="Enter your Official Name"
-                  {...register("name", {
-                    required: "please provide a valid name",
-                  })}
-                />
+    <div className="content-box p-10 my-5">
+      <h2 className="text-4xl font-black pb-2">Create An Account</h2>
+      <p className="font-medium">Register with Zapshift</p>
 
-                {/* photo  */}
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Choose an Avatar</span>
-                  </label>
+      <form onSubmit={handleSubmit(onSubmit)} className="pt-5 md:max-w-sm">
+        <fieldset className="fieldset">
+          {/* imageUploadIcon  */}
+          <div className="flex gap-2 items-center">
+            {activeAvatar ? (
+              <img
+                src={activeAvatar}
+                alt=""
+                className="cursor-pointer w-[100px] h-[100px] object-cover rounded-full"
+              />
+            ) : (
+              <img
+                onClick={() => inputRef?.current?.click()}
+                src={imageUploadIcon}
+                alt=""
+                className="cursor-pointer"
+              />
+            )}
 
-                  <div className="flex gap-2 flex-wrap items-center">
-                    {avatar.map((av) => (
-                      <div
-                        onClick={() => {
-                          setActiveAvatar(av);
-                          setimgError("");
-                        }}
-                        className={`p-px rounded-full border-2 border-base-200 cursor-pointer ${
-                          activeAvatar == av && "border-success"
-                        }`}
-                        key={av}
-                      >
-                        <img className="w-10 rounded-full" src={av} alt="" />
-                      </div>
-                    ))}
-                    <div
-                      onClick={() => inputRef?.current.click()}
-                      className="w-10 h-10 p-2 bg-base-200 rounded-full cursor-pointer"
-                    >
-                      <img
-                        className=""
-                        src="https://img.icons8.com/?size=96&id=8ax09IWlr80n&format=png"
-                        alt=""
-                      />
-                      <input
-                        onChange={handleImgUpload}
-                        className="hidden"
-                        ref={inputRef}
-                        type="file"
-                        name=""
-                        id=""
-                        accept=".jpg,.jpeg,.png"
-                      />
-                    </div>
+            <div className="divider divider-horizontal"></div>
 
-                    {imgError && (
-                      <p className="text-error text-xs">{imgError}</p>
-                    )}
-                  </div>
-                </div>
+            {activeAvatar ? (
+              <h2 className="text-success">Image Uploaded SuccessFully</h2>
+            ) : (
+              <h2>Upload Your Image</h2>
+            )}
 
-                {/* email  */}
-                <label className="label">Your Email</label>
-                {errors.email && (
-                  <p className="text-error text-xs">{errors.email.message}</p>
-                )}
-                <input
-                  type="email"
-                  className={`input w-full ${
-                    errors?.email ? "input-error" : "input-success"
-                  } `}
-                  placeholder="Enter Your Email"
-                  {...register("email", {
-                    required: "please provide a valid email address",
-                  })}
-                />
-                {/* password   */}
-                <label className="label">Create a Password</label>
-                {errors.password && (
-                  <p className="text-error text-xs">
-                    password must be 6 characters long with a minimum 1
-                    uppercase letter
-                  </p>
-                )}
-                <div className="relative mb-4">
-                  <input
-                    type={`${showPassword ? "text" : "password"}`}
-                    className={`input w-full ${
-                      errors?.password ? "input-error" : "input-success"
-                    } `}
-                    placeholder="Password"
-                    {...register("password", { pattern: /^(?=.*[A-Z]).{6,}$/ })}
-                  />
-                  <div className="absolute right-6 bottom-2 z-10">
-                    <FaEye
-                      onClick={() => setShowPassWord(true)}
-                      className={`text-accent cursor-pointer ${
-                        showPassword ? "hidden" : "block"
-                      }`}
-                      size={20}
-                    ></FaEye>
-
-                    <FaEyeSlash
-                      onClick={() => setShowPassWord(false)}
-                      className={`text-accent cursor-pointer ${
-                        showPassword ? "block" : "hidden"
-                      }`}
-                      size={20}
-                    ></FaEyeSlash>
-                  </div>
-                </div>
-
-                {loginError && (
-                  <p className="text-error text-xs">{loginError}</p>
-                )}
-
-                {isUploading && (
-                  <p className="text-success text-xs">
-                    Image is Uploading . please wait
-                  </p>
-                )}
-
-                <button
-                  disabled={isSubmitting || isUploading}
-                  className="btn btn-neutral  "
-                >
-                  {isSubmitting ? "Registering.." : "Register Now"}
-                </button>
-
-                <div className="mt-3">
-                  <p>
-                    Allready have an Account ?{" "}
-                    <Link
-                      to="/login"
-                      className="link link-hover text-secondary font-semibold"
-                      state={location.state}
-                    >
-                      Login Now
-                    </Link>
-                  </p>
-                </div>
-              </fieldset>
-              <SocialLogin></SocialLogin>
-            </form>
+            <input
+              onChange={handleImgUpload}
+              ref={inputRef}
+              hidden
+              type="file"
+              name=""
+              id=""
+            />
           </div>
-        </div>
-        <div className="flex-1">
-          <div className="max-w-[200px] md:max-w-[450px]">
-            <Lottie
-              className="w-full"
-              options={{
-                animationData: registerAnimation,
-                autoplay: true,
-                loop: true,
-              }}
-            ></Lottie>
+          {imgError && <p className="text-error text-xs">{imgError}</p>}
+
+          {/* name  */}
+          <label className="label">Your Name</label>
+          {errors.name && (
+            <p className="text-error text-xs">{errors.name.message}</p>
+          )}
+          <input
+            type="text"
+            className={`input w-full ${
+              errors?.name ? "input-error" : "input-success"
+            } `}
+            placeholder="Enter your Official Name"
+            {...register("name", {
+              required: "please provide a valid name",
+            })}
+          />
+
+          {/* email  */}
+          <label className="label">Your Email</label>
+          {errors.email && (
+            <p className="text-error text-xs">{errors.email.message}</p>
+          )}
+          <input
+            type="email"
+            className={`input w-full ${
+              errors?.email ? "input-error" : "input-success"
+            } `}
+            placeholder="Enter Your Email"
+            {...register("email", {
+              required: "please provide a valid email address",
+            })}
+          />
+          {/* password   */}
+          <label className="label">Create a Password</label>
+          {errors.password && (
+            <p className="text-error text-xs">
+              password must be 6 characters long with a minimum 1 uppercase
+              letter
+            </p>
+          )}
+          <div className="relative mb-4">
+            <input
+              type={`${showPassword ? "text" : "password"}`}
+              className={`input w-full ${
+                errors?.password ? "input-error" : "input-success"
+              } `}
+              placeholder="Password"
+              {...register("password", { pattern: /^(?=.*[A-Z]).{6,}$/ })}
+            />
+            <div className="absolute right-6 bottom-2 z-10">
+              <FaEye
+                onClick={() => setShowPassWord(true)}
+                className={`text-accent cursor-pointer ${
+                  showPassword ? "hidden" : "block"
+                }`}
+                size={20}
+              ></FaEye>
+
+              <FaEyeSlash
+                onClick={() => setShowPassWord(false)}
+                className={`text-accent cursor-pointer ${
+                  showPassword ? "block" : "hidden"
+                }`}
+                size={20}
+              ></FaEyeSlash>
+            </div>
           </div>
-        </div>
-      </div>
+
+          {loginError && <p className="text-error text-xs">{loginError}</p>}
+
+          {isUploading && (
+            <p className="text-success text-xs">
+              Image is Uploading . please wait
+            </p>
+          )}
+
+          <button
+            disabled={isSubmitting || isUploading}
+            className="btn btn-neutral  "
+          >
+            {isSubmitting ? "Registering.." : "Register Now"}
+          </button>
+
+          <div className="mt-3">
+            <p>
+              Allready have an Account ?{" "}
+              <Link
+                to="/login"
+                className="link link-hover text-secondary font-semibold"
+                state={location.state}
+              >
+                Login Now
+              </Link>
+            </p>
+          </div>
+        </fieldset>
+        <SocialLogin></SocialLogin>
+      </form>
     </div>
   );
 };
