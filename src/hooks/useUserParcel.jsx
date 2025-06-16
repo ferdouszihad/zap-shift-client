@@ -13,11 +13,10 @@ const useUserParcel = () => {
   } = useQuery({
     queryKey: ["parcels-paid", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcel/all/${user?.email}`);
+      const res = await axiosSecure.get(`/parcel/user/${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email,
-    keepPreviousData: true,
   });
 
   return { parcels, isLoading, error, refetch };

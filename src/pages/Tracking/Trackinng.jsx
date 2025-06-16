@@ -34,7 +34,7 @@ const Trackinng = () => {
         subtitle={"Now you can easily track your consignment"}
       />
 
-      <div className="search my-4 flexitems-center">
+      <div className="search my-4">
         <form
           onSubmit={handleTracking}
           className="flex gap-2 relative pb-10 border-b-2 border-stone-200"

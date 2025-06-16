@@ -55,6 +55,11 @@ const UnPaidParcels = () => {
         }
       ></PageTitle>
 
+      <p className=" text-lg text-secondary font-semibold mb-5">
+        Total {parcels.length} Parcels are Unpaid. Please pay for your parcels
+        to start delivery procedure.
+      </p>
+
       {parcels.length == 0 && (
         <div className="py-10 flex flex-col justify-center gap-5 items-center">
           <h2 className="text-center text-3xl">

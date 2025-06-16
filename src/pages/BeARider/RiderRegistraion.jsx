@@ -60,6 +60,13 @@ const RiderRegistraion = () => {
     // navigate("/");
   };
 
+  const handleReApply = () => {
+    axiosSecure.delete(`/agent/${user?.email}`).then((res) => {
+      console.log(res.data);
+      refetch();
+    });
+  };
+
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -74,6 +81,24 @@ const RiderRegistraion = () => {
         <h2 className="font-bold text-6xl text-secondary">
           Your Request for Be a Rider is Pending
         </h2>
+        <Link to={"/"} className="btn btn-primary text-black">
+          Go To Home
+        </Link>
+      </div>
+    );
+  }
+  if (data?.status == "rejected") {
+    return (
+      <div className="bg-base-100 content-box my-5 rounded-2xl flex flex-col min-h-screen justify-center items-center gap-5">
+        <div className="">
+          <img className="w-[200px]" src={pendingAgent} alt="" />
+        </div>
+        <h2 className="font-bold text-5xl text-secondary">
+          Your Request for Be a Rider is Rejected
+        </h2>
+        <button className="btn btn-secondary" onClick={handleReApply}>
+          ReApply
+        </button>
         <Link to={"/"} className="btn btn-primary text-black">
           Go To Home
         </Link>

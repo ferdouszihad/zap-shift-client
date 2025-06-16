@@ -12,6 +12,7 @@
   --color-info: #1f1f1f;
   --color-base-200: #eaeced;
   --color-accent: #606060;
+  --color-primary-content: #000000;
 }
 .tab-list {
   display: flex;
@@ -46,7 +47,7 @@ a {
   transition: all 0.3s;
 }
 
-a:hover {
+a.navlink:hover {
   @apply bg-primary rounded-full text-black;
 }
 a.active {

@@ -24,6 +24,11 @@ import Trackinng from "../pages/Tracking/Trackinng";
 import AuthLayouts from "../layouts/AuthLayouts";
 import ForgetPass from "../pages/Authentication/ForgetPass";
 import PaymentHistory from "../pages/Dashboard/Marchent/PaymentHistory";
+import AdminRoute from "./AdminRoute";
+import ManageUser from "../pages/Dashboard/Agent/ManageUser";
+import MarchentRoute from "./MarchentRoute";
+import Forbidden from "../pages/utils/Forbidden";
+import AgentRequest from "../pages/Dashboard/Admin/AgentRequest";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +44,9 @@ const router = createBrowserRouter([
         path: "/book-parcel",
         element: (
           <PrivateRoute>
-            <BookParcel></BookParcel>
+            <MarchentRoute>
+              <BookParcel></BookParcel>
+            </MarchentRoute>
           </PrivateRoute>
         ),
         loader: () => fetch("/division.json"),
@@ -118,34 +125,82 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <DashboardHome></DashboardHome>,
+        element: (
+          <PrivateRoute>
+            <DashboardHome></DashboardHome>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/Add-Parcel",
-        element: <BookParcel></BookParcel>,
+        element: (
+          <MarchentRoute>
+            <BookParcel></BookParcel>
+          </MarchentRoute>
+        ),
         loader: () => fetch("/division.json"),
       },
       {
         path: "/dashboard/parcels/unpaid",
-        element: <UnPaidParcels></UnPaidParcels>,
+        element: (
+          <MarchentRoute>
+            <UnPaidParcels></UnPaidParcels>
+          </MarchentRoute>
+        ),
       },
       {
         path: "/dashboard/parcel/:id",
-        element: <ParcelDetail></ParcelDetail>,
+        element: (
+          <MarchentRoute>
+            <ParcelDetail></ParcelDetail>
+          </MarchentRoute>
+        ),
       },
       {
         path: "/dashboard/payment/:id",
-        element: <Payment></Payment>,
+        element: (
+          <MarchentRoute>
+            <Payment></Payment>
+          </MarchentRoute>
+        ),
       },
       {
         path: "/dashboard/payment-history",
-        element: <PaymentHistory></PaymentHistory>,
+        element: (
+          <MarchentRoute>
+            <PaymentHistory></PaymentHistory>
+          </MarchentRoute>
+        ),
       },
       {
         path: "/dashboard/track-parcel",
-        element: <TrackParcel></TrackParcel>,
+        element: (
+          <MarchentRoute>
+            <TrackParcel></TrackParcel>
+          </MarchentRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-user",
+        element: (
+          <AdminRoute>
+            <ManageUser></ManageUser>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/agent-requests",
+        element: (
+          <AdminRoute>
+            <AgentRequest></AgentRequest>
+          </AdminRoute>
+        ),
       },
     ],
+  },
+  {
+    path: "/forbidden",
+    element: <Forbidden></Forbidden>,
   },
 ]);
 

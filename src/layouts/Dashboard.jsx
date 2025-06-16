@@ -30,54 +30,54 @@ const Dashboard = () => {
   const nav = (
     <>
       <li>
-        <NavLink to="/dashboard">
+        <NavLink className={"navlink"} to="/dashboard">
           <HiHome></HiHome> {role.toUpperCase()} Home
         </NavLink>
         {role == "merchant" && (
           <>
-            <NavLink to="add-parcel">
+            <NavLink className={"navlink"} to="add-parcel">
               <CgAdd></CgAdd> Add a Parcel
             </NavLink>
-            <NavLink to="/dashboard/parcels/unpaid">
+            <NavLink className={"navlink"} to="/dashboard/parcels/unpaid">
               <MdTrackChanges></MdTrackChanges> Parcel To Pay
               <div className="badge badge-sm badge-secondary">
                 {parcels.length}
               </div>
             </NavLink>
 
-            <NavLink to="/dashboard/track-parcel">
+            <NavLink className={"navlink"} to="/dashboard/track-parcel">
               <CgTrack></CgTrack> Track Parcels
             </NavLink>
 
-            <NavLink to="payment-history">
+            <NavLink className={"navlink"} to="payment-history">
               <FaMoneyBill></FaMoneyBill> Payment History
             </NavLink>
-            <NavLink to="manage-products">
+            <NavLink className={"navlink"} to="manage-products">
               <MdReviews></MdReviews> Manage Reviews
             </NavLink>
           </>
         )}
         {role == "admin" && (
           <>
-            <NavLink to="manage-user">
+            <NavLink className={"navlink"} to="manage-user">
               <BiUserCircle></BiUserCircle> Manage User
             </NavLink>
-            <NavLink to="manage-parcels">
+            <NavLink className={"navlink"} to="manage-parcels">
               <MdReviews></MdReviews> Manage Parcels
             </NavLink>
 
-            <NavLink to="manage-agents">
+            <NavLink className={"navlink"} to="manage-agents">
               <GrDeliver></GrDeliver> Manage Agents
             </NavLink>
-            <NavLink to="agent-requests">
+            <NavLink className={"navlink"} to="agent-requests">
               <GrDeliver></GrDeliver> Agent Requests
             </NavLink>
 
-            <NavLink to="manage-warehouse">
+            <NavLink className={"navlink"} to="manage-warehouse">
               <BsHouseFill></BsHouseFill> Manage WareHouse
             </NavLink>
 
-            <NavLink to="all-payments">
+            <NavLink className={"navlink"} to="all-payments">
               <FaMoneyBill></FaMoneyBill> All Payments
             </NavLink>
           </>

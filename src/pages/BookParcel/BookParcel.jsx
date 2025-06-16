@@ -13,7 +13,6 @@ const BookParcel = () => {
   const {
     register,
     handleSubmit,
-
     formState: { errors, isSubmitting },
     watch,
   } = useForm();
@@ -133,7 +132,7 @@ const BookParcel = () => {
   };
 
   return (
-    <div className=" pb-5 content-box bg-base-100 my-5 p-10 rounded-2xl">
+    <div className="content-box bg-base-100 my-5 p-10 rounded-2xl">
       <PageTitle
         title={"Add Parcel"}
         subtitle={

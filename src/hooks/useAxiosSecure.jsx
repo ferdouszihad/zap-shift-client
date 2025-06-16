@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import useAuth from "./useAuth";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 
 const axiosSecure = axios.create({
   baseURL: import.meta.env.VITE_SERVER,
@@ -31,6 +31,10 @@ const useAxiosSecure = () => {
     },
     async (error) => {
       const status = error.response.status;
+      console.log("response stopped by interceptors", status);
+      if (status == 403) {
+        navigate("/forbidden");
+      }
       if (status === 401 || status === 400) {
         await logOut();
         navigate("/login");
