@@ -82,6 +82,20 @@ const Dashboard = () => {
             </NavLink>
           </>
         )}
+
+        {role == "agent" && (
+          <>
+            <NavLink className={"navlink"} to="pickup">
+              <GrDeliver></GrDeliver> Parcel To PickUP
+            </NavLink>
+            <NavLink className={"navlink"} to="agent-parcels">
+              <GrDeliver></GrDeliver> My Parcels
+            </NavLink>
+            <NavLink className={"navlink"} to="agent-requests">
+              <GrDeliver></GrDeliver> Agent Requests
+            </NavLink>
+          </>
+        )}
       </li>
     </>
   );

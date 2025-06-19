@@ -25,10 +25,16 @@ import AuthLayouts from "../layouts/AuthLayouts";
 import ForgetPass from "../pages/Authentication/ForgetPass";
 import PaymentHistory from "../pages/Dashboard/Marchent/PaymentHistory";
 import AdminRoute from "./AdminRoute";
-import ManageUser from "../pages/Dashboard/Agent/ManageUser";
+
 import MarchentRoute from "./MarchentRoute";
 import Forbidden from "../pages/utils/Forbidden";
 import AgentRequest from "../pages/Dashboard/Admin/AgentRequest";
+import ManageAgent from "../pages/Dashboard/Admin/ManageAgent";
+import ManageParcel from "../pages/Dashboard/Admin/ManageParcel";
+import ManageSingleParcel from "../pages/Dashboard/Admin/ManageSingleParcel";
+import AgentRoute from "./AgentRoute";
+import PickUp from "../pages/Dashboard/Agent/PickUp";
+import ManageUser from "../pages/Dashboard/Admin/ManageUser";
 
 const router = createBrowserRouter([
   {
@@ -150,11 +156,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/parcel/:id",
-        element: (
-          <MarchentRoute>
-            <ParcelDetail></ParcelDetail>
-          </MarchentRoute>
-        ),
+        element: <ParcelDetail></ParcelDetail>,
       },
       {
         path: "/dashboard/payment/:id",
@@ -189,11 +191,43 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/manage-agents",
+        element: (
+          <AdminRoute>
+            <ManageAgent></ManageAgent>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-parcels",
+        element: (
+          <AdminRoute>
+            <ManageParcel></ManageParcel>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-parcels/:id",
+        element: (
+          <AdminRoute>
+            <ManageSingleParcel></ManageSingleParcel>
+          </AdminRoute>
+        ),
+      },
+      {
         path: "/dashboard/agent-requests",
         element: (
           <AdminRoute>
             <AgentRequest></AgentRequest>
           </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/pickup",
+        element: (
+          <AgentRoute>
+            <PickUp></PickUp>
+          </AgentRoute>
         ),
       },
     ],

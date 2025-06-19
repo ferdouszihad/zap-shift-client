@@ -74,18 +74,23 @@ const AgentRequestRow = ({ agent, refetch }) => {
           >
             Details
           </button>
-          <button
-            className="btn btn-sm btn-secondary "
-            onClick={() => handleAgentAprove(agent.email)}
-          >
-            Aprove
-          </button>
-          <button
-            className="btn btn-sm btn-error"
-            onClick={() => handleAgentReject(agent.email)}
-          >
-            Reject
-          </button>
+          {agent.status === "rejected" && (
+            <button
+              className="btn btn-sm btn-success"
+              onClick={() => handleAgentAprove(agent.email)}
+            >
+              Approve
+            </button>
+          )}
+
+          {agent.status === "approved" && (
+            <button
+              className="btn btn-sm btn-error"
+              onClick={() => handleAgentReject(agent.email)}
+            >
+              Reject
+            </button>
+          )}
         </td>
       </tr>
       <dialog id={modalId} className="modal">
