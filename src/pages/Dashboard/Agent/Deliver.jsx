@@ -7,26 +7,24 @@ import { MdCall } from "react-icons/md";
 import { useRef, useState } from "react";
 import Swal from "sweetalert2";
 
-const PickUp = () => {
+const Deliver = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [currentParcel, setCurrentParcel] = useState({});
   const closeBtnref = useRef(null);
-
-  console.log(currentParcel);
   const {
     data: parcels = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["pickUpRequests", user?.email],
+    queryKey: ["deliveryRequest", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcel/pickup/${user?.email}`);
+      const res = await axiosSecure.get(`/parcel/delivery/${user?.email}`);
       return res.data;
     },
   });
 
-  const handlePickUp = async (e) => {
+  const handleDelivery = async (e) => {
     e.preventDefault();
     const trackingNo = e.target.tracking_no.value;
     if (!trackingNo) {
@@ -38,32 +36,20 @@ const PickUp = () => {
       return;
     }
 
-    const isSameWareHouse =
-      currentParcel.pickupWarehouse == currentParcel.deliveryWareHouse;
-
-    console.log(isSameWareHouse);
-
     axiosSecure
       .put(`/parcel/update-status/${currentParcel._id}`, {
-        status: isSameWareHouse ? "ready-for-delivery" : "in-transit",
+        status: "delivered",
         //for tracking
-        deliveryAgent: isSameWareHouse && user?.email,
-        statusMessage: isSameWareHouse
-          ? "Parcel picked up successfully form sender. Taking Parcel to Reciever"
-          : "Parcel picked up successfully form sender.Taking Parcel to the warehouse",
+        statusMessage: "Parcel Delivered Successfully to the Reciever",
         updatedBy: user?.displayName,
       })
       .then((res) => {
         if (res.data.modifiedCount > 0) {
-          Swal.fire("success", "Delivery assigned successfully!", "success");
+          Swal.fire("success", "Product Deliverd successfully!", "success");
           closeBtnref.current.click(); // Close the modal
           refetch();
         } else {
-          Swal.fire(
-            "Opps!",
-            "Failed to assign delivery. Please try again.",
-            "error"
-          );
+          Swal.fire("Opps!", "Failed to  delivery. Please try again.", "error");
         }
       })
       .catch((error) => {
@@ -79,15 +65,15 @@ const PickUp = () => {
   return (
     <div className="content-box my-5">
       <PageTitle
-        title="Parcel To Pick Up"
-        subtitle="Manage your pick up requests here."
+        title="Parcel For Delivery"
+        subtitle="Manage your Delivery  requests here."
       />
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
             <tr>
               <th></th>
-              <th>Sender</th>
+              <th>Reciever</th>
               <th>Parcel</th>
               <th>Address</th>
               <th>Action</th>
@@ -99,9 +85,9 @@ const PickUp = () => {
                 <td>{index + 1}</td>
                 <td>
                   <div>
-                    <div className="font-bold">{parcel.senderName}</div>
+                    <div className="font-bold">{parcel.receiverName}</div>
                     <div className="text-sm opacity-70">
-                      {parcel.senderPhone}
+                      {parcel.receiverPhone}
                     </div>
                   </div>
                 </td>
@@ -118,16 +104,16 @@ const PickUp = () => {
                 </td>
                 <td>
                   <div>
-                    <div className="font-bold">{parcel.senderAddress}</div>
+                    <div className="font-bold">{parcel.recieverAddress}</div>
 
                     <div className="text-xs badge">
-                      {parcel.pickupInstruction}
+                      {parcel.deliveryInstruction}
                     </div>
                   </div>
                 </td>
                 <td className="space-x-2">
                   <a
-                    href={`tel:+88${parcel.senderPhone}`}
+                    href={`tel:+88${parcel.recieverPhone}`}
                     className="btn btn-primary btn-sm"
                   >
                     <MdCall />
@@ -137,7 +123,7 @@ const PickUp = () => {
                     htmlFor="confirm-otp"
                     className="btn btn-primary"
                   >
-                    Complete PickUP
+                    Complete Delivery
                   </label>
                 </td>
               </tr>
@@ -156,8 +142,8 @@ const PickUp = () => {
       <input type="checkbox" id="confirm-otp" className="modal-toggle" />
       <div className="modal" role="dialog">
         <div className="modal-box">
-          <h2 className="text-2xl font-bold mb-3">Confirm Pickup</h2>
-          <form onSubmit={handlePickUp}>
+          <h2 className="text-2xl font-bold mb-3">Confirm Delivery</h2>
+          <form onSubmit={handleDelivery}>
             <input
               type="number"
               name="tracking_no"
@@ -181,4 +167,4 @@ const PickUp = () => {
   );
 };
 
-export default PickUp;
+export default Deliver;

@@ -35,6 +35,7 @@ import ManageSingleParcel from "../pages/Dashboard/Admin/ManageSingleParcel";
 import AgentRoute from "./AgentRoute";
 import PickUp from "../pages/Dashboard/Agent/PickUp";
 import ManageUser from "../pages/Dashboard/Admin/ManageUser";
+import Deliver from "../pages/Dashboard/Agent/Deliver";
 
 const router = createBrowserRouter([
   {
@@ -227,6 +228,14 @@ const router = createBrowserRouter([
         element: (
           <AgentRoute>
             <PickUp></PickUp>
+          </AgentRoute>
+        ),
+      },
+      {
+        path: "/dashboard/delivery",
+        element: (
+          <AgentRoute>
+            <Deliver></Deliver>
           </AgentRoute>
         ),
       },

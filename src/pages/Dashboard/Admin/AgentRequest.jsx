@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../utils/Loading";
 import { MdCall } from "react-icons/md";
 import AgentRequestRow from "./AgentRequestRow";
+import AgentViewModal from "./AgentViewModal";
 // data
 // {
 //     "_id": "684a6905c74ba799d8a320ee",

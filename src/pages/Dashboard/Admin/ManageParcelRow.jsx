@@ -1,34 +1,21 @@
 import { FaLocationArrow } from "react-icons/fa";
 import useWareHouseData from "../../../hooks/useWareHouseData";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { formatDistanceToNow } from "date-fns";
 import { BiInfoCircle } from "react-icons/bi";
 import { BsGearFill } from "react-icons/bs";
+import Swal from "sweetalert2";
 
 const ManageParcelRow = ({ parcel }) => {
   const { warehouses } = useWareHouseData();
+  const navigate = useNavigate();
   const {
     _id,
-    type,
-    title,
-    weight,
+
     charge,
     deliveryWareHouse,
     pickupWarehouse,
-    pickupInstruction,
-    deliveryInstruction,
-    senderName,
-    senderPhone,
-    senderEmail,
-    senderAddress,
-    senderRegion,
-    receiverName,
-    receiverPhone,
-    receiverAddress,
-    recieverRegion,
-    tracking_no,
-    pickup_otp,
-    delivery_otp,
+
     status,
     created_at,
   } = parcel;
@@ -62,18 +49,22 @@ const ManageParcelRow = ({ parcel }) => {
 
       <td className="space-x-3">
         <Link
-          to={`/dashboard/parcel/${parcel._id}`}
+          to={`/dashboard/parcel/${_id}`}
           className="btn btn-primary btn-sm"
         >
           <BiInfoCircle></BiInfoCircle>
         </Link>
 
-        <Link
-          to={`/dashboard/manage-parcels/${parcel._id}`}
+        <button
+          onClick={() =>
+            status == "unpaid"
+              ? Swal.fire("Not-Paid", "Payment is Still Pending", "error")
+              : navigate(`/dashboard/manage-parcels/${_id}`)
+          }
           className="btn btn-primary btn-sm"
         >
           <BsGearFill></BsGearFill> Manage
-        </Link>
+        </button>
       </td>
     </tr>
   );

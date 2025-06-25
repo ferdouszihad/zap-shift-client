@@ -162,10 +162,13 @@ const ManageSingleParcel = () => {
 
           <div className="action mt-5 space-y-5">
             <h2 className="text-2xl font-bold mb-5">Take Action</h2>
-
-            {status == "paid" && (
-              <>
-                <label className="btn btn-primary" htmlFor="assign_modal">
+            <ol type="1" className="list border-l-4 border-primary">
+              <li className="list-row">
+                <label
+                  disabled={status != "paid"}
+                  className="btn btn-primary"
+                  htmlFor="assign_modal"
+                >
                   Assign Agent For Pick Up
                 </label>
                 <PickUpAssignModal
@@ -173,62 +176,91 @@ const ManageSingleParcel = () => {
                   refetch={refetch}
                   wareHouse={warehouses.find((wh) => wh._id == pickupWarehouse)}
                 ></PickUpAssignModal>
-              </>
-            )}
-            {status === "ready-to-pickup" &&
-              deliveryWareHouse == pickupWarehouse && (
-                <p className="p-5 shadow">
-                  No Task Needed
-                  <br />
-                  Agent will pick up & Deliver the parcel
-                </p>
-              )}
+              </li>
+              <li className="list-row" hidden={status != "ready-to-pickup"}>
+                {status === "ready-to-pickup" &&
+                  deliveryWareHouse == pickupWarehouse && (
+                    <p className="p-5 shadow">
+                      No Task Needed
+                      <br />
+                      Agent will pick up & Deliver the parcel
+                    </p>
+                  )}
 
-            {status === "ready-to-pickup" &&
-              deliveryWareHouse != pickupWarehouse && (
-                <p className="p-5 shadow">
-                  Please Wait for Agent to pick up the parcel
-                </p>
-              )}
+                {status === "ready-to-pickup" &&
+                  deliveryWareHouse != pickupWarehouse && (
+                    <p className="p-5 shadow flex gap-2 items-center">
+                      <div className="  w-1 h-1 bg-secondary rounded-full animate-ping"></div>
+                      Please Wait for Agent to pick up the parcel
+                    </p>
+                  )}
+              </li>
+              <li className="list-row">
+                <button
+                  onClick={() =>
+                    handleParcelStatus(
+                      "reached-warehouse",
+                      "Parcel reached at Our WareHouse. Initiating intercity delivery process"
+                    )
+                  }
+                  disabled={status != "in-transit"}
+                  className="btn btn-primary"
+                >
+                  Recieve Parcel?
+                </button>
+              </li>
 
-            <div className=" grid gap-4">
-              <button
-                onClick={() =>
-                  handleParcelStatus(
-                    "reached-warehouse",
-                    "Parcel reached at Our WareHouse. Initiating intercity delivery process"
-                  )
-                }
-                disabled={status != "in-transit"}
-                className="btn btn-primary"
-              >
-                Recieve Parcel?
-              </button>
-              <button
-                disabled={status != "reached-warehouse"}
-                onClick={() =>
-                  handleParcelStatus(
-                    "shipped",
-                    "Parcel is shipped to destination warehouse. You will be notified when it arrives."
-                  )
-                }
-                className="btn btn-primary"
-              >
-                Send Parcel to Destination WareHouse
-              </button>
-              <label
-                htmlFor="assign_modal_delivery"
-                disabled={status != "shipped"}
-                className="btn btn-primary"
-              >
-                Reached at Destination WareHouse
-              </label>
-              <DeliveryAssignModal
-                parcelId={_id}
-                refetch={refetch}
-                wareHouse={warehouses.find((wh) => wh._id == deliveryWareHouse)}
-              ></DeliveryAssignModal>
-            </div>
+              <li className="list-row">
+                <button
+                  disabled={status != "reached-warehouse"}
+                  onClick={() =>
+                    handleParcelStatus(
+                      "shipped",
+                      "Parcel is shipped to destination warehouse. You will be notified when it arrives."
+                    )
+                  }
+                  className="btn btn-primary"
+                >
+                  Send Parcel to Destination WareHouse
+                </button>
+              </li>
+              <li className="list-row">
+                <label
+                  htmlFor="assign_modal_delivery"
+                  disabled={status != "shipped"}
+                  className="btn btn-primary"
+                >
+                  Reached at Destination WareHouse
+                </label>
+                <DeliveryAssignModal
+                  parcelId={_id}
+                  refetch={refetch}
+                  wareHouse={warehouses.find(
+                    (wh) => wh._id == deliveryWareHouse
+                  )}
+                ></DeliveryAssignModal>
+              </li>
+
+              <li className="list-row">
+                {status === "ready-for-delivery" && (
+                  <p className="p-5 shadow flex gap-2 items-center">
+                    <div className="  w-1 h-1 bg-secondary rounded-full animate-ping"></div>
+                    Agent will Deliver the Parcel as soon as Possible
+                  </p>
+                )}
+              </li>
+
+              <li className="list-row">
+                {status === "delivered" && (
+                  <p className="p-5 shadow flex gap-2 items-center bg-primary">
+                    <div className="  w-1 h-1 bg-secondary rounded-full animate-ping"></div>
+                    Parcel Delivered Successfully
+                  </p>
+                )}
+              </li>
+            </ol>
+
+            <div className=" grid gap-4"></div>
           </div>
         </div>
         <div className="grid md:grid-cols-1 gap-4 mt-6 ">

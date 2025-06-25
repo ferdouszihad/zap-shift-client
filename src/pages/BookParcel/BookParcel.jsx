@@ -36,7 +36,7 @@ const BookParcel = () => {
   useEffect(() => {
     if (parcelType == "document") {
       if (pickUpwhId == deliveryWhId) {
-        setCost(60);
+        setCost(70);
       } else {
         setCost(80);
       }

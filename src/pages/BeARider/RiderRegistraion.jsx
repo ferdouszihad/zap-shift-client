@@ -105,6 +105,23 @@ const RiderRegistraion = () => {
       </div>
     );
   }
+  if (data?.status == "approved") {
+    return (
+      <div className="bg-base-100 content-box my-5 rounded-2xl flex flex-col min-h-screen justify-center items-center gap-5">
+        <h2 className="text-2xl font-bold text-center">Yahoo</h2>
+        <div className="">
+          <img className="w-[200px]" src={pendingAgent} alt="" />
+        </div>
+        <h2 className="font-bold text-5xl text-secondary">
+          Your Request for Be a Rider is Approved
+        </h2>
+
+        <Link to={"/dashboard"} className="btn btn-primary text-black">
+          Go To dashboard
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="content-box my-5 p-10 bg-base-100 rounded-2xl">

@@ -4,23 +4,14 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../utils/Loading";
 import { MdCall } from "react-icons/md";
 import AgentRequestRow from "./AgentRequestRow";
-// data
-// {
-//     "_id": "684a6905c74ba799d8a320ee",
-//     "name": "F M ZAHIDULM ISLAM",
-//     "email": "test.user413@gmail.com",
-//     "image": "https://i.ibb.co/gbqDK5L6/my-pp.jpg",
-//     "age": "30",
-//     "region": "Barisal",
-//     "wareHouseId": "6836bae46476183c1cad22ad",
-//     "contact": "01987654321",
-//     "nid": "1234567890",
-//     "status": "pending",
-//     "created_at": "2025-06-12T05:43:33.412Z",
-//     "earning": 0
-// }
+import useWareHouseData from "../../../hooks/useWareHouseData";
+import AgentViewModal from "./AgentViewModal";
+import Swal from "sweetalert2";
+
 const ManageAgents = () => {
   const axiosSecure = useAxiosSecure();
+  const { warehouses } = useWareHouseData();
+
   const {
     data: agents = [],
     isLoading,
@@ -34,13 +25,30 @@ const ManageAgents = () => {
   });
   console.log(agents);
 
+  const handleAgentAprove = (email) => {
+    axiosSecure.patch(`/agent/approve/${email}`).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        Swal.fire("Agent Aproved", "agent now can work", "success");
+        refetch();
+      }
+    });
+  };
+  const handleAgentReject = (email) => {
+    axiosSecure.patch(`/agent/reject/${email}`).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        Swal.fire("Agent Rejected", "", "success");
+        refetch();
+      }
+    });
+  };
+
   if (isLoading) {
     return <Loading></Loading>;
   }
   return (
     <div className="content-box bg base-100 p-10 my-5">
       <PageTitle
-        title={"Agent Requets"}
+        title={"Manage Agents"}
         subtitle={"Verify and aprove Agent for ZapShift"}
       ></PageTitle>
 
@@ -54,7 +62,7 @@ const ManageAgents = () => {
             <tr>
               <th>Name</th>
               <th>Contact</th>
-              <th>Region</th>
+              <th>Requested Area</th>
               <th>Status</th>
               <th></th>
             </tr>
@@ -62,9 +70,11 @@ const ManageAgents = () => {
           <tbody>
             {agents.map((agent) => (
               <AgentRequestRow
+                handleAgentAprove={handleAgentAprove}
+                handleAgentReject={handleAgentReject}
                 key={agent._id}
                 agent={agent}
-                refetch={refetch}
+                warehouse={warehouses.find((wh) => wh._id == agent.wareHouseId)}
               />
             ))}
           </tbody>

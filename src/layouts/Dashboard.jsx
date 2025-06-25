@@ -88,11 +88,9 @@ const Dashboard = () => {
             <NavLink className={"navlink"} to="pickup">
               <GrDeliver></GrDeliver> Parcel To PickUP
             </NavLink>
-            <NavLink className={"navlink"} to="agent-parcels">
-              <GrDeliver></GrDeliver> My Parcels
-            </NavLink>
-            <NavLink className={"navlink"} to="agent-requests">
-              <GrDeliver></GrDeliver> Agent Requests
+
+            <NavLink className={"navlink"} to="delivery">
+              <GrDeliver></GrDeliver> Parcel For Delivery
             </NavLink>
           </>
         )}
